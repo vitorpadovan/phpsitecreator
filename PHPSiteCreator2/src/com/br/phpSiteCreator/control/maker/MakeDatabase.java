@@ -31,10 +31,12 @@ public class MakeDatabase {
 		this.makeConstruct();
 		this.makeExtrair();
 		this.makeInserirItem();
+		this.makeSalvar();
 		this.makePesquisa();
 		this.makePesquisaPorID();
 		this.makePesquisaPorIndex();
 		this.makeBackup();
+		this.makePesquisaPorCampos();
 		this.makeDestruct();
 		
 		
@@ -122,7 +124,7 @@ public class MakeDatabase {
 			a.addFrase("\"");
 				a.addFrase("select * from "+classe.getNome()+" order by $orderBy");
 			a.addFrase("\";");
-				a.addLinha("$this->pesquisar($string_sql);",3);
+				a.addLinha("return $this->pesquisar($string_sql);",3);
 			
 		a.addLinha("}",2);
 		
@@ -145,8 +147,45 @@ public class MakeDatabase {
 				a.addFrase("'");
 			}
 			a.addFrase("\";");
-			a.addLinha("$this->pesquisar($sql);",3);
+			a.addLinha("return $this->pesquisar($sql);",3);
 		a.addLinha("}",2);
+	}
+	
+	private void makeSalvar()
+	{
+		a.proximaLinha();
+		a.addLinha("public function salvar($obj)",2);
+		a.addLinha("{",2);
+			a.addLinha("$sql = new DML_SQL(\""+classe.getNome()+"\");",3);
+			for(Variavel v : classe.getVariaveis())
+			{
+				a.addLinha("$sql->addInsert(\""+v.getNome()+"\",$obj->get"+StringMananger.capitalize(v.getNome())+"())",3);
+			}
+		a.addLinha("}",2);
+	}
+	
+	private void makePesquisaPorCampos()
+	{
+		for(Variavel v : classe.getVariaveis())
+		{
+			a.proximaLinha();
+			a.addLinha("public function getListaPor"+StringMananger.capitalize(v.getNome())+"($"+v.getNome()+")",2);
+			a.addLinha("{",2);
+				a.addLinha("$string_sql = \"select * from "+classe.getNome()+" where "+v.getNome(),3);
+				switch(v.getTipo())
+				{
+				case Tipo.STRING:
+					a.addFrase(" like '"+v.getNome()+"%'");
+					a.addFrase(" or ");
+					a.addFrase(" like '%"+v.getNome()+"'");
+					
+					break;
+					
+				}
+				a.addFrase("\";");
+				a.addLinha("return $this->pesquisar($string_sql);",3);
+			a.addLinha("}",2);
+		}
 	}
 	
 	private void makeBasico()
@@ -154,6 +193,7 @@ public class MakeDatabase {
 		a.proximaLinha();
 		a.addLinha("public function getListaPorID($id)",2);
 		a.addLinha("{",2);
+			
 		a.addLinha("}",2);
 	}
 	
