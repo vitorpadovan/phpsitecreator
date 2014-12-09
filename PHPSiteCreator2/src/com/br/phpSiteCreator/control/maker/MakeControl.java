@@ -2,6 +2,7 @@ package com.br.phpSiteCreator.control.maker;
 
 import java.io.File;
 
+import com.br.phpSiteCreator.control.util.StringMananger;
 import com.br.phpSiteCreator.model.Arquivo;
 import com.br.phpSiteCreator.model.Classe;
 import com.br.phpSiteCreator.model.SiteInfo;
@@ -68,7 +69,9 @@ public class MakeControl {
 					}
 				}
 			arq.addFrase(")");
-			arq.addLinha("{",ident);
+			arq.addLinha("{",ident++);
+			arq.addLinha("if",ident);
+			arq.addFrase("(");
 				for(int i = 0; i< classe.getVariaveis().size();i++)
 				{
 					Variavel v = classe.getVariaveis().get(i);
@@ -78,11 +81,20 @@ public class MakeControl {
 						{
 							arq.addFrase(" && ");
 						}
-						arq.addFrase("isset($_POST['"+v.getNome()+"'])");
+						arq.addFrase("(strlen($_POST['"+v.getNome()+"']) > 0)");
 					}
 				}
+			arq.addFrase(")");
+			arq.addLinha("{",ident++);
+				arq.addLinha("$classe = new "+classe.getNome()+"();",ident);
+				for(Variavel v : classe.getVariaveis())
+				{
+					arq.addLinha("$classe->set"+StringMananger.capitalize(v.getNome()+"($_POST['"+v.getNome()+"']);"),ident);
+				}
+				ident--;
 			arq.addLinha("}",ident--);
-		arq.addLinha("{",ident);
+			arq.addLinha("}",ident--);
+		arq.addLinha("}",ident);
 	}
 
 	private void makeEditar() {
