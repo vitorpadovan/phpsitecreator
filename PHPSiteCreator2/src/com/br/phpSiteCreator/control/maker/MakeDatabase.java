@@ -124,7 +124,7 @@ public class MakeDatabase {
 			a.addFrase("\"");
 				a.addFrase("select * from "+classe.getNome()+" order by $orderBy");
 			a.addFrase("\";");
-				a.addLinha("return $this->pesquisar($string_sql);",3);
+				a.addLinha("return $this->pesquisa($string_sql);",3);
 			
 		a.addLinha("}",2);
 		
@@ -147,7 +147,7 @@ public class MakeDatabase {
 				a.addFrase("'");
 			}
 			a.addFrase("\";");
-			a.addLinha("return $this->pesquisar($sql);",3);
+			a.addLinha("return $this->pesquisa($sql);",3);
 		a.addLinha("}",2);
 	}
 	
@@ -184,7 +184,8 @@ public class MakeDatabase {
 					
 				}
 				a.addFrase("\";");
-				a.addLinha("return $this->pesquisar($string_sql);",3);
+				a.addLinha("Debug::s(\"a pesquisa foi \".$string_sql);",3);
+				a.addLinha("return $this->pesquisa($string_sql);",3);
 			a.addLinha("}",2);
 		}
 	}

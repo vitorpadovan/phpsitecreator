@@ -9,6 +9,7 @@ import com.br.phpSiteCreator.control.maker.MakeDBScript;
 import com.br.phpSiteCreator.control.maker.MakeDatabase;
 import com.br.phpSiteCreator.control.maker.MakeModel;
 import com.br.phpSiteCreator.control.maker.MakeView;
+import com.br.phpSiteCreator.control.util.Debug;
 import com.br.phpSiteCreator.model.Classe;
 import com.br.phpSiteCreator.model.SiteInfo;
 import com.br.phpSiteCreator.model.Tipo;
@@ -30,7 +31,7 @@ public class Main {
 		this.makeModel();
 		this.makeDatabase();
 		this.makeDBScript();
-		this.makeTable();
+		this.makeView();
 		this.makeControl();
 
 	}
@@ -56,14 +57,22 @@ public class Main {
 		}
 	}
 
-	private void makeTable() {
+	private void makeView() {
 		for (Classe classe : this.classes) {
 			new MakeView(classe);
 			View tv = new View(classe);
 			if (tv.getClasseFinal() != null) {
-				System.out.println("A classe " + classe.getNome()
-						+ " tem referências");
+				//TODO debug aqui
+				//Debug.mensagem("A classe " + classe.getNome()+ " tem referências");
 				new MakeView(tv.getClasseFinal());
+				for(Variavel v : tv.getClasseFinal().getVariaveis())
+				{					
+						//TODO Debug aqui
+						Debug.mensagem(tv.getClasseFinal().getNome()+"."+v.getNome());
+				}
+				//Debug.mensagem("\n\n\n");
+				
+				//Chamado_Pes_Pat_Ser.cod_chamado
 			}
 		}
 	}
@@ -81,8 +90,8 @@ public class Main {
 			new MakeDatabase(classe);
 			View tv = new View(classe);
 			if (tv.getClasseFinal() != null) {
-				System.out.println("A classe " + classe.getNome()
-						+ " tem referências");
+				//TODO debug aqui
+				//Debug.mensagem("A classe " + classe.getNome()+ " tem referências");
 				new MakeDatabase(tv.getClasseFinal());
 			}
 		}
@@ -93,8 +102,8 @@ public class Main {
 			new MakeModel(classe);
 			View tv = new View(classe);
 			if (tv.getClasseFinal() != null) {
-				System.out.println("A classe " + classe.getNome()
-						+ " tem referências");
+				//TODO debug aqui
+				//Debug.mensagem("A classe " + classe.getNome()+ " tem referências");
 				new MakeModel(tv.getClasseFinal());
 			}
 		}

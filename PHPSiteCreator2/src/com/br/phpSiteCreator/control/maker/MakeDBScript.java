@@ -18,7 +18,8 @@ public class MakeDBScript {
 	public MakeDBScript()
 	{
 		this.classes = new ArrayList<Classe>();
-		String pathName = SiteInfo.getPathName()+File.separator+SiteInfo.getSiteName()+File.separator+"system"+File.separator+"docs";
+		//String pathName = SiteInfo.getPathName()+File.separator+SiteInfo.getSiteName()+File.separator+"system"+File.separator+"docs";
+		String pathName = SiteInfo.getPathName()+File.separator+SiteInfo.getSiteName()+File.separator+"docs";
 		String fileName = "mysql.sql";
 		this.ar = new Arquivo(fileName, pathName);
 	

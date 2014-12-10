@@ -3,6 +3,8 @@ package com.br.phpSiteCreator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.br.phpSiteCreator.control.util.Debug;
+
 public class View {
 
 	private Classe classeOriginal;
@@ -18,8 +20,8 @@ public class View {
 
 	private void validarView() {
 		if (this.classeOriginal.isExisteReferencia()) {
-			System.out.println("A Classe " + this.classeOriginal.getNome()
-					+ " tem referencias");
+			//TODO debug aqui
+			//Debug.mensagem("A Classe " + this.classeOriginal.getNome()+" tem referencias");
 			this.prepararClasseFinal();
 		}
 	}
@@ -30,13 +32,13 @@ public class View {
 		nome = View.makeViewName(this.classeOriginal);
 
 		this.classeFinal = new Classe(nome);
-		this.classeFinal.setChavePrimaria(this.classeOriginal
-				.getChavePrimaria());
+		this.classeFinal.setView();
+		this.classeFinal.setChavePrimaria(this.classeOriginal.getChavePrimaria());
 
 		// Adicionando as variáveis da classe original
-		for (Variavel v : this.classeOriginal.getVariaveis()) {
-			Variavel t = new Variavel(v.getNome(), v.getTipo(), v.getTamanho(),
-					v.isRequerido());
+		for (Variavel v : this.classeOriginal.getVariaveis()) 
+		{			
+			Variavel t = new Variavel(v.getNome(), v.getTipo(), v.getTamanho(),v.isRequerido());
 			t.setChaveEstrangeira(v.getChaveEstrangeira());
 			this.classeFinal.add(t);
 		}
@@ -45,8 +47,7 @@ public class View {
 		for (Classe c : referencias) {
 			for (Variavel v : c.getVariaveis()) {
 				String nomeDaVariavel = View.makeVarName(c, v);
-				Variavel t = new Variavel(nomeDaVariavel, v.getTipo(),
-						v.getTamanho(), v.isRequerido());
+				Variavel t = new Variavel(nomeDaVariavel, v.getTipo(),v.getTamanho(), v.isRequerido());
 				t.setChaveEstrangeira(v.getChaveEstrangeira());
 				this.classeFinal.add(t);
 			}
@@ -72,6 +73,14 @@ public class View {
 	}
 
 	public Classe getClasseFinal() {
+		if(this.classeFinal!= null)
+		{
+			for(Variavel v: classeFinal.getVariaveis())
+			{
+				//TODO Debug aqui
+				//Debug.mensagem("A classe final "+classeFinal.getNome()+" possui a seguinte variavel: "+v.getNome());
+			}
+		}
 		return classeFinal;
 	}
 

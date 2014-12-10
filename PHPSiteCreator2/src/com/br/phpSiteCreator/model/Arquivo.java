@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import com.br.phpSiteCreator.control.util.Debug;
+
 public class Arquivo {
 
 	private String fileName;
@@ -79,10 +81,10 @@ public class Arquivo {
 	
 	public boolean gravar()
 	{
-		System.out.println("Iremos gravar o seguinte arquivo\n"+this.arquivo.getAbsolutePath()+"\n");
+		//Debug.mensagem("Iremos gravar o seguinte arquivo\n"+this.arquivo.getAbsolutePath());
 		Writer writer = null;
 		
-		System.out.println(this.pathName);
+		//Debug.mensagem(this.pathName);
 		File pasta = new File(this.pathName);
 		if(!pasta.exists())
 		{

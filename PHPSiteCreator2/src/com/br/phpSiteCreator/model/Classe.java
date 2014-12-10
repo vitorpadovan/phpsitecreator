@@ -10,12 +10,25 @@ public class Classe {
 	private Variavel chavePrimaria;
 	private boolean existeReferencia;
 	private List<Classe> referencias;
+	private boolean view;
 
 	public Classe(String nome) {
 		// TODO Auto-generated constructor stub
 		this.variaveis = new ArrayList<Variavel>();
 		this.referencias = new ArrayList<Classe>();
 		this.nome = nome;
+	}
+
+	public boolean isView() {
+		return view;
+	}
+
+	public void setView(boolean view) {
+		this.view = view;
+	}
+
+	public void setView() {
+		this.view = true;
 	}
 
 	public void add(Variavel var) {
