@@ -159,8 +159,9 @@ public class MakeDatabase {
 			a.addLinha("$sql = new DML_SQL(\""+classe.getNome()+"\");",3);
 			for(Variavel v : classe.getVariaveis())
 			{
-				a.addLinha("$sql->addInsert(\""+v.getNome()+"\",$obj->get"+StringMananger.capitalize(v.getNome())+"())",3);
+				a.addLinha("$sql->addInsert(\""+v.getNome()+"\",$obj->get"+StringMananger.capitalize(v.getNome())+"());",3);
 			}
+			a.addLinha("return $this->inserir($sql);",3);
 		a.addLinha("}",2);
 	}
 	

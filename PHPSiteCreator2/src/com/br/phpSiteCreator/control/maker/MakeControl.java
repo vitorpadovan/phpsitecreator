@@ -86,12 +86,14 @@ public class MakeControl {
 				}
 			arq.addFrase(")");
 			arq.addLinha("{",ident++);
-				arq.addLinha("$classe = new "+classe.getNome()+"();",ident);
+				arq.addLinha("$class = new "+classe.getNome()+"();",ident);
 				for(Variavel v : classe.getVariaveis())
 				{
-					arq.addLinha("$classe->set"+StringMananger.capitalize(v.getNome()+"($_POST['"+v.getNome()+"']);"),ident);
+					arq.addLinha("$class->set"+StringMananger.capitalize(v.getNome()),ident);
+					arq.addFrase("($_POST['"+v.getNome()+"']);");
 				}
-				ident--;
+				arq.addLinha("$DB = new "+classe.getNome()+"();",ident);
+				arq.addLinha("$DB->salvar($class);",ident--);
 			arq.addLinha("}",ident--);
 			arq.addLinha("}",ident--);
 		arq.addLinha("}",ident);

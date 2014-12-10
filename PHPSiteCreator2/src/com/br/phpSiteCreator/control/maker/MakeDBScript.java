@@ -95,6 +95,11 @@ public class MakeDBScript {
 			{
 				this.ar.addFrase(" not null");
 			}
+			if(v.isExisteChaveEstrangeira())
+			{
+				this.ar.addFrase(",");
+				this.ar.addLinha("FOREIGN KEY("+v.getNome()+") REFERENCES "+v.getChaveEstrangeira().getNome()+"("+v.getChaveEstrangeira().getChavePrimaria().getNome()+")",2);
+			}
 		}
 		this.ar.addLinha(")engine = innodb;");
 	}
