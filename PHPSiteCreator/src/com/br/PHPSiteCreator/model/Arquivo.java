@@ -104,4 +104,20 @@ public class Arquivo {
 		this.linhas = linhas;
 	}
 
+	public boolean gravar() {
+		//TODO implementar o gravar arquivo
+		return false;
+	}
+
+	public void adicionarLinha(String linha) {
+		this.linhas.add(linha);
+	}
+
+	public void adicionarLinha(String linha, int ident) {
+		for (int i = 0; i < ident; i++) {
+			linha = "\t" + linha;
+		}
+		this.linhas.add(linha);
+	}
+
 }
