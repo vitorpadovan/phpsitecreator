@@ -16,9 +16,8 @@ public class PHPModel extends ConstrutorBasico {
 	 * @param pastaConstrutor
 	 * @param iniciaisConstrutor
 	 */
-	public PHPModel(Classe classe, String pastaConstrutor,
-			String iniciaisConstrutor) {
-		super(classe, pastaConstrutor, iniciaisConstrutor);
+	public PHPModel(Classe classe) {
+		super(classe, "Model", "");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -16,9 +16,8 @@ public class PHPDatabase extends ConstrutorBasico {
 	 * @param pastaConstrutor
 	 * @param iniciaisConstrutor
 	 */
-	public PHPDatabase(Classe classe, String pastaConstrutor,
-			String iniciaisConstrutor) {
-		super(classe, pastaConstrutor, iniciaisConstrutor);
+	public PHPDatabase(Classe classe) {
+		super(classe, "Database", "DB_");
 		// TODO Auto-generated constructor stub
 	}
 

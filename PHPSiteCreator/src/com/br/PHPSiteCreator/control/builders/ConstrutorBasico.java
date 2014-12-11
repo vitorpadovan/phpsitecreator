@@ -22,6 +22,7 @@ public abstract class ConstrutorBasico {
 		this.pastaConstrutor = pastaConstrutor;
 		this.iniciaisConstrutor = iniciaisConstrutor;
 		this.iniciar();
+		//TODO pensar melhor em como implementar isso.
 	}
 
 	private void iniciar() {

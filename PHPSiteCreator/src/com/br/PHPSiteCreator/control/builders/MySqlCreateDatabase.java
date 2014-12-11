@@ -3,6 +3,8 @@
  */
 package com.br.PHPSiteCreator.control.builders;
 
+import java.io.File;
+
 import com.br.PHPSiteCreator.model.Classe;
 
 /**
@@ -16,9 +18,8 @@ public class MySqlCreateDatabase extends ConstrutorBasico {
 	 * @param pastaConstrutor
 	 * @param iniciaisConstrutor
 	 */
-	public MySqlCreateDatabase(Classe classe, String pastaConstrutor,
-			String iniciaisConstrutor) {
-		super(classe, pastaConstrutor, iniciaisConstrutor);
+	public MySqlCreateDatabase(Classe classe) {
+		super(classe, "docs", "");
 		// TODO Auto-generated constructor stub
 	}
 

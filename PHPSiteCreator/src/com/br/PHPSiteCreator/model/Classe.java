@@ -8,5 +8,11 @@ package com.br.PHPSiteCreator.model;
  *
  */
 public class Classe {
+	
+	private String nome;	
+	
+	public Classe(String nome) {
+		this.nome = nome;
+	}
 
 }

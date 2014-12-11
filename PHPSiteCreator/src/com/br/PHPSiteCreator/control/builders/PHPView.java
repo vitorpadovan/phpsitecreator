@@ -16,9 +16,8 @@ public class PHPView extends ConstrutorBasico {
 	 * @param pastaConstrutor
 	 * @param iniciaisConstrutor
 	 */
-	public PHPView(Classe classe, String pastaConstrutor,
-			String iniciaisConstrutor) {
-		super(classe, pastaConstrutor, iniciaisConstrutor);
+	public PHPView(Classe classe) {
+		super(classe, "View", "VW_");
 		// TODO Auto-generated constructor stub
 	}
 

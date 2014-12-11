@@ -16,9 +16,8 @@ public class PHPControl extends ConstrutorBasico {
 	 * @param pastaConstrutor
 	 * @param iniciaisConstrutor
 	 */
-	public PHPControl(Classe classe, String pastaConstrutor,
-			String iniciaisConstrutor) {
-		super(classe, pastaConstrutor, iniciaisConstrutor);
+	public PHPControl(Classe classe) {
+		super(classe, "Control", "CTRL_");
 		// TODO Auto-generated constructor stub
 	}
 
