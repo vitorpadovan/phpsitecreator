@@ -3,6 +3,8 @@
  */
 package com.br.PHPSiteCreator.control.builders;
 
+import java.io.File;
+
 import com.br.PHPSiteCreator.model.Classe;
 
 /**
@@ -17,7 +19,7 @@ public class PHPView extends ConstrutorBasico {
 	 * @param iniciaisConstrutor
 	 */
 	public PHPView(Classe classe) {
-		super(classe, "View", "VW_");
+		super(classe,"system"+File.separator+"view","VW_",".class.php");
 		// TODO Auto-generated constructor stub
 	}
 

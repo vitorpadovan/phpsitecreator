@@ -3,7 +3,16 @@
  */
 package com.br.PHPSiteCreator.model;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.br.PHPSiteCreator.util.Debug;
 
 /**
  * @author vitor.padovan89@gmail.com
@@ -16,6 +25,7 @@ public class Arquivo {
 	private String extensao;
 	private int tamanho;
 	private List<String> linhas;
+	private File arquivo;
 
 	/**
 	 * @param nome
@@ -25,8 +35,14 @@ public class Arquivo {
 	public Arquivo(String nome, String pasta, String extensao) {
 		super();
 		this.nome = nome;
-		this.pasta = pasta;
+		this.pasta = SiteInfo.getPastaBase()+File.separator+pasta;
 		this.extensao = extensao;
+		this.linhas = new ArrayList<String>();
+		//String path = System.getProperty("user.home") + File.separator+"Desktop";
+		String nomeCompletoArquivo = SiteInfo.getPastaBase()+File.separator+pasta+File.separator+nome+extensao;
+		this.arquivo = new File(nomeCompletoArquivo);
+		Debug.m("O nome completo do arquivo é: "+nomeCompletoArquivo);
+		//TODO instanciar o this.arquivo
 	}
 
 	/**
@@ -105,15 +121,49 @@ public class Arquivo {
 	}
 
 	public boolean gravar() {
-		//TODO implementar o gravar arquivo
-		return false;
+		//Debug.mensagem("Iremos gravar o seguinte arquivo\n"+this.arquivo.getAbsolutePath());
+		Writer writer = null;
+				
+		//Debug.mensagem(this.pathName);
+		File pasta = new File(this.pasta);
+		if(!pasta.exists())
+		{
+			Debug.m("Pasta não existe "+pasta.getAbsolutePath());
+			pasta.mkdirs();
+		}
+		else
+		{
+			Debug.m("Pasta existe "+pasta.getAbsolutePath());
+		}
+
+		try {
+			
+		    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.arquivo), "utf-8"));
+		    for(String string : linhas)
+		    {
+		    	 writer.write(string+"\n");
+		    }
+		   
+		}
+			catch (IOException ex) 
+		{
+				//report
+				Debug.e("Impossivel salvar o arquivo "+arquivo.getAbsolutePath()+"\nMensagem de erro foi: "+ex.getMessage());
+				//ex.printStackTrace();
+				return false;
+		}
+			finally 
+		{
+			try {writer.close();} catch (Exception ex) {}
+		}
+		return true;
 	}
 
-	public void adicionarLinha(String linha) {
+	public void addLinha(String linha) {
 		this.linhas.add(linha);
 	}
 
-	public void adicionarLinha(String linha, int ident) {
+	public void addLinha(String linha, int ident) {
 		for (int i = 0; i < ident; i++) {
 			linha = "\t" + linha;
 		}

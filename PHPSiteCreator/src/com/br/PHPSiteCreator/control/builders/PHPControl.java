@@ -3,6 +3,8 @@
  */
 package com.br.PHPSiteCreator.control.builders;
 
+import java.io.File;
+
 import com.br.PHPSiteCreator.model.Classe;
 
 /**
@@ -17,7 +19,7 @@ public class PHPControl extends ConstrutorBasico {
 	 * @param iniciaisConstrutor
 	 */
 	public PHPControl(Classe classe) {
-		super(classe, "Control", "CTRL_");
+		super(classe,"system"+File.separator+"control","CTRL_",".class.php");
 		// TODO Auto-generated constructor stub
 	}
 

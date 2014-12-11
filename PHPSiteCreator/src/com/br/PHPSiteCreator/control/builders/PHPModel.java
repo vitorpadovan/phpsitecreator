@@ -3,6 +3,8 @@
  */
 package com.br.PHPSiteCreator.control.builders;
 
+import java.io.File;
+
 import com.br.PHPSiteCreator.model.Classe;
 
 /**
@@ -17,7 +19,7 @@ public class PHPModel extends ConstrutorBasico {
 	 * @param iniciaisConstrutor
 	 */
 	public PHPModel(Classe classe) {
-		super(classe, "Model", "");
+		super(classe,"system"+File.separator+"model","",".class.php");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -3,6 +3,8 @@
  */
 package com.br.PHPSiteCreator.control.builders;
 
+import java.io.File;
+
 import com.br.PHPSiteCreator.model.Classe;
 
 /**
@@ -17,7 +19,7 @@ public class PHPDatabase extends ConstrutorBasico {
 	 * @param iniciaisConstrutor
 	 */
 	public PHPDatabase(Classe classe) {
-		super(classe, "Database", "DB_");
+		super(classe,"system"+File.separator+"database","DB_",".class.php");
 		// TODO Auto-generated constructor stub
 	}
 
