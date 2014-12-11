@@ -101,7 +101,7 @@ public class MakeView {
 		{
 			for(Variavel v:classe.getVariaveis())
 			{
-				arquivo.addLinha("public function setCmb"+classe.getNome()+"($"+v.getNome()+")",2);
+				arquivo.addLinha("public function setCmb"+classe.getNome()+""+StringMananger.capitalize(v.getNome())+"($"+v.getNome()+")",2);
 				arquivo.addLinha("{",2);
 				arquivo.addLinha("$this->cmb_"+classe.getNome()+"->set"+StringMananger.capitalize(v.getNome())+"($"+v.getNome()+");",3);
 				//arquivo.addLinha("$this->cmb_"+classe.getNome()+"->set"+StringMananger.capitalize(v.getNome())+"("+v.getNome()+");",3);
