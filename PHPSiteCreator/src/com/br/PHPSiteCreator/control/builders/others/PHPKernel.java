@@ -20,6 +20,7 @@ public class PHPKernel extends ConstrutorBasico {
 	 */
 	public PHPKernel() {
 		super(new Classe("Kernel"), "system", "", ".php");
+		//TODO continuar esta classe
 	}
 
 	/* (non-Javadoc)
