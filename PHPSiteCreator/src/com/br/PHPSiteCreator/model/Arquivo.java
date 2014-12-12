@@ -42,7 +42,6 @@ public class Arquivo {
 		String nomeCompletoArquivo = SiteInfo.getPastaBase()+File.separator+pasta+File.separator+nome+extensao;
 		this.arquivo = new File(nomeCompletoArquivo);
 		Debug.m("O nome completo do arquivo é: "+nomeCompletoArquivo);
-		//TODO instanciar o this.arquivo
 	}
 
 	/**

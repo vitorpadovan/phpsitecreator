@@ -11,6 +11,7 @@ public abstract class ConstrutorBasico {
 	protected String pastaConstrutor;
 	protected String iniciaisConstrutor;
 	protected String extensao;
+	protected int indentacaoInicial;
 	
 	
 
@@ -23,6 +24,7 @@ public abstract class ConstrutorBasico {
 	protected ConstrutorBasico(Classe classe, String pastaConstrutor,
 			String iniciaisConstrutor, String extensao) {
 		super();
+		this.indentacaoInicial = 3;
 		this.classe = classe;
 		this.pastaConstrutor = pastaConstrutor;
 		this.iniciaisConstrutor = iniciaisConstrutor;
@@ -34,7 +36,11 @@ public abstract class ConstrutorBasico {
 
 	private void iniciar() {
 		this.abrirArquivo();
+		this.commentVariaveis();
+		this.variaveis();
 		this.construtor();
+		this.commentGetsAndSets();
+		this.getsAndSets();
 		this.corpo();
 		this.destruidor();
 		this.fecharArquivo();
@@ -42,33 +48,63 @@ public abstract class ConstrutorBasico {
 
 	private void abrirArquivo() {
 		arquivo.addLinha("<?php");
+		arquivo.addLinha("class "+classe.getNome(),1);
+		arquivo.addLinha("{",1);
 		Debug.m("Abrindo um arquivo");
 	}
 
 	private void fecharArquivo() {
+		arquivo.addLinha("}",1);
 		arquivo.addLinha("?>");
 		Debug.m("Fechando um arquivo");
 		arquivo.gravar();
 	}
 
 	private void construtor() {
-		arquivo.addLinha("public function __construct()",1);
-		arquivo.addLinha("{",1);
-			arquivo.addLinha("#Debug::m(\"Construindo a classe "+classe.getNome()+"\");",2);
-		arquivo.addLinha("}",1);
+		arquivo.addLinha("");
+		arquivo.addLinha("public function __construct()",2);
+		arquivo.addLinha("{",2);
+			arquivo.addLinha("#Debug::m(\"Construindo a classe "+classe.getNome()+"\");",3);
+			//TODO Remover comentário quando a classe Debug ficar pronta;
+		arquivo.addLinha("}",2);
 	}
 
 	private void destruidor() {
-		arquivo.addLinha("public function __destruct()",1);
-		arquivo.addLinha("{",1);
-		arquivo.addLinha("#Debug::m(\"Destruindo a classe "+classe.getNome()+"\");",2);
-		arquivo.addLinha("}",1);
+		arquivo.addLinha("");
+		arquivo.addLinha("public function __destruct()",2);
+		arquivo.addLinha("{",2);
+			arquivo.addLinha("#Debug::m(\"Destruindo a classe "+classe.getNome()+"\");",3);
+			//TODO Remover comentário quando a classe Debug ficar pronta;
+		arquivo.addLinha("}",2);
 
 	}
 	
+	public void commentVariaveis()
+	{
+		arquivo.addLinha("###Variaveis",2);
+	}
 	public abstract void variaveis();
 	
+	public void commentGetsAndSets()
+	{
+		arquivo.addLinha("###Gets & Sets",2);
+	}
+	
+	protected void iniciarFuncao(String nome)
+	{
+		arquivo.addLinha("");
+		arquivo.addLinha("public function "+nome+"()",2);
+		arquivo.addLinha("{",2);
+		
+	}
+	
+	protected void finalizarFuncao()
+	{
+		arquivo.addLinha("}",2);
+	}
+	
 	public abstract void getsAndSets();
+	
 
 	public abstract void corpo();
 

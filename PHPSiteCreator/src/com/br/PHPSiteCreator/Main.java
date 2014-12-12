@@ -11,6 +11,7 @@ import com.br.PHPSiteCreator.control.builders.PHPControl;
 import com.br.PHPSiteCreator.control.builders.PHPDatabase;
 import com.br.PHPSiteCreator.control.builders.PHPModel;
 import com.br.PHPSiteCreator.control.builders.PHPView;
+import com.br.PHPSiteCreator.control.builders.others.PHPKernel;
 import com.br.PHPSiteCreator.model.Classe;
 import com.br.PHPSiteCreator.model.SiteInfo;
 import com.br.PHPSiteCreator.util.Debug;
@@ -32,9 +33,15 @@ public class Main {
 	public Main()
 	{
 		new SiteInfo("NIPP_testes");
+		this.inicarClassesBasicas();
 		this.inicarVariaveis();
 		this.adicionarClasses();
 		this.processar();
+	}
+	
+	private void inicarClassesBasicas()
+	{
+		new PHPKernel();
 	}
 	
 	private void inicarVariaveis()
