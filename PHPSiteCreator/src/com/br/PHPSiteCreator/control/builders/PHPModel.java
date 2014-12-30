@@ -6,6 +6,7 @@ package com.br.PHPSiteCreator.control.builders;
 import java.io.File;
 
 import com.br.PHPSiteCreator.model.Classe;
+import com.br.PHPSiteCreator.model.Variavel;
 
 /**
  * @author vitor.padovan89@gmail.com
@@ -25,8 +26,18 @@ public class PHPModel extends ConstrutorBasico {
 
 	@Override
 	public void variaveis() {
-		// TODO Auto-generated method stub
+		if(classe.getChavePrimaria() != null)
+		{
+			for(Variavel var : classe.getChavePrimaria().getChavePrimaria())
+			{
+				arquivo.addLinha("private $"+var.getNome()+";",2);
+			}
+		}
 		
+		for(Variavel var : classe.getVariaveis())
+		{
+			arquivo.addLinha("private $"+var.getNome()+";",2);
+		}
 	}
 
 	@Override

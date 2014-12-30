@@ -5,6 +5,7 @@ package com.br.PHPSiteCreator.control.builders.others;
 
 import com.br.PHPSiteCreator.control.builders.ConstrutorBasico;
 import com.br.PHPSiteCreator.model.Classe;
+import com.br.PHPSiteCreator.model.SiteInfo;
 
 /**
  * @author cleverUserNameToUseInSourceCode
@@ -64,6 +65,16 @@ public class PHPKernel extends ConstrutorBasico {
 	public void carregarDebug()
 	{
 		this.iniciarFuncao("carregarDebug");
+		arquivo.addLinha("if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')",3);
+		arquivo.addLinha("{",3);
+			arquivo.addLinha("$OS = 1;",4);
+			arquivo.addLinha("$pasta_atual = '"+SiteInfo.getPastaBase()+"\\system';",4);
+		arquivo.addLinha("}",3);
+		arquivo.addLinha("else",3);
+		arquivo.addLinha("{",3);
+			arquivo.addLinha("$OS = 2;",4);
+		arquivo.addLinha("}",3);
+		arquivo.addLinha("require_once(\"\");",3);
 		this.finalizarFuncao();
 	}
 	

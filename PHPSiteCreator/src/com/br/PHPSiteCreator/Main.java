@@ -14,6 +14,8 @@ import com.br.PHPSiteCreator.control.builders.PHPView;
 import com.br.PHPSiteCreator.control.builders.others.PHPKernel;
 import com.br.PHPSiteCreator.model.Classe;
 import com.br.PHPSiteCreator.model.SiteInfo;
+import com.br.PHPSiteCreator.model.Tipo;
+import com.br.PHPSiteCreator.model.Variavel;
 import com.br.PHPSiteCreator.util.Debug;
 
 /**
@@ -71,6 +73,13 @@ public class Main {
 	{
 		Debug.m("Obtendo classe pessoa");
 		Classe pessoa = new Classe("Pessoa");
+				
+		Variavel cod_pessoa = new Variavel("cod_pessoa", Tipo.INT, 100, true, null, "Chave primária da pessoa");
+		Variavel nome = new Variavel("nome", Tipo.VARCHAR, 100, true, null, "Chave primária da pessoa");
+		
+		pessoa.addChave(cod_pessoa);
+		pessoa.addVariavel(nome);
+		
 		return pessoa;
 	}
 
