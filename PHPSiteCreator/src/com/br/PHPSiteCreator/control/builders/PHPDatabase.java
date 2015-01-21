@@ -62,7 +62,6 @@ public class PHPDatabase extends ConstrutorBasico {
 	}
 
 	private void salvarDB() {
-		// TODO implementar
 		this.addParametroFuncao("" + this.classe.getNome());
 		this.iniciarFuncao("salvar_db");
 		this.arquivo.addLinha("if($" + this.classe.getNome() + " instanceof "
@@ -105,12 +104,12 @@ public class PHPDatabase extends ConstrutorBasico {
 	
 	private void lista()
 	{
-		
+		// TODO implementar
 	}
 	
 	private void pesquisaPorId()
 	{
-		
+		// TODO implementar		
 	}
 
 	private void pesquisasDB() {
