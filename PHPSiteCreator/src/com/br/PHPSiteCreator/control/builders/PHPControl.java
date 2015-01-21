@@ -19,26 +19,40 @@ public class PHPControl extends ConstrutorBasico {
 	 * @param iniciaisConstrutor
 	 */
 	public PHPControl(Classe classe) {
-		super(classe,"system"+File.separator+"control","CTRL_",".class.php");
-		// TODO Auto-generated constructor stub
+		super(classe, "system" + File.separator + "control", "CTRL_",
+				".class.php");
+		// NOT_USABLE não precisa disto
 	}
 
 	@Override
 	public void variaveis() {
-		// TODO Auto-generated method stub
-		
+		// NOT_USABLE não precisa disto
+
 	}
 
 	@Override
 	public void getsAndSets() {
-		// TODO Auto-generated method stub
-		
+		// NOT_USABLE não precisa disto
 	}
 
 	@Override
 	public void corpo() {
-		// TODO Auto-generated method stub
-		
+		this.salvar();
+		this.excluir();
+		this.atualizar();
+
+	}
+
+	private void salvar() {
+		// TODO implementar o salvar dos itens;
+	}
+
+	private void excluir() {
+		// TODO implementar o excluir dos itens
+	}
+
+	private void atualizar() {
+		// TODO implementar o atualizar os itens
 	}
 
 }

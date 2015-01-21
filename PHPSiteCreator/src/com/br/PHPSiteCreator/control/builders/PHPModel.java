@@ -21,7 +21,7 @@ public class PHPModel extends ConstrutorBasico {
 	 */
 	public PHPModel(Classe classe) {
 		super(classe,"system"+File.separator+"model","",".class.php");
-		// TODO Auto-generated constructor stub
+		//NOT_USABLE não precisa disto
 	}
 
 	@Override
@@ -42,14 +42,62 @@ public class PHPModel extends ConstrutorBasico {
 
 	@Override
 	public void getsAndSets() {
-		// TODO Auto-generated method stub
-		
+		for(Variavel var : this.classe.getVariaveis())
+		{
+			this.addParametroFuncao(var.getNome());
+			this.iniciarFuncao("set"+this.capitalize(var.getNome()));
+			//REMOVE Debug arquivo.addLinha("#Debug::m(\"set do "+this.capitalize(var.getNome())+"\");",3);
+			arquivo.addLinha("$this->"+var.getNome()+" = $"+var.getNome()+";",3);
+			this.finalizarFuncao();
+			
+			this.iniciarFuncao("get"+this.capitalize(var.getNome()));
+			//REMOVE Debug arquivo.addLinha("#Debug::m(\"get do "+this.capitalize(var.getNome())+"\");",3);
+			arquivo.addLinha("return $this->"+var.getNome()+";",3);
+			this.finalizarFuncao();
+		}
 	}
 
 	@Override
 	public void corpo() {
-		// TODO Auto-generated method stub
+		this.setAll();
+		this.setRequired();
 		
+	}
+	
+	private void setAll()
+	{
+		for(Variavel v : this.classe.getVariaveis())
+		{
+			this.addParametroFuncao(v.getNome());
+		}
+		this.iniciarFuncao("setAll");
+		//REMOVE Debug arquivo.addLinha("#Debug::m(\"setAll do "+classe.getNome()+"\");",3);
+		for(Variavel v : this.classe.getVariaveis())
+		{	
+			arquivo.addLinha("$this->"+v.getNome()+" = $"+v.getNome()+";",3);
+		}
+		this.finalizarFuncao();
+	}
+	
+	private void setRequired()
+	{
+		for(Variavel v : this.classe.getVariaveis())
+		{
+			if(v.isRequerido())
+			{
+				this.addParametroFuncao(v.getNome());
+			}
+		}
+		this.iniciarFuncao("setRequired");
+		//REMOVE Debug arquivo.addLinha("#Debug::m(\"setRequired do "+classe.getNome()+"\");",3);
+		for(Variavel v : this.classe.getVariaveis())
+		{
+			if(v.isRequerido())
+			{
+				arquivo.addLinha("$this->"+v.getNome()+" = $"+v.getNome()+";",3);
+			}
+		}
+		this.finalizarFuncao();
 	}
 
 }

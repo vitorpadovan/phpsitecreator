@@ -6,7 +6,7 @@ public class Modificador {
 	public static final int PRIVADO = 2;
 
 	private Modificador() {
-		// TODO Auto-generated constructor stub
+		//NOT_USABLE não precisa disto
 	}
 
 }

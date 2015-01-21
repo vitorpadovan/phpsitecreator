@@ -21,7 +21,7 @@ public class PHPKernel extends ConstrutorBasico {
 	 */
 	public PHPKernel() {
 		super(new Classe("Kernel"), "system", "", ".php");
-		//TODO continuar esta classe
+		//REMOVE continuar esta classe
 	}
 
 	/* (non-Javadoc)
@@ -41,7 +41,7 @@ public class PHPKernel extends ConstrutorBasico {
 	 */
 	@Override
 	public void getsAndSets() {
-		// TODO Auto-generated method stub
+		//NOT_USABLE não precisa disto
 	}
 
 	/* (non-Javadoc)

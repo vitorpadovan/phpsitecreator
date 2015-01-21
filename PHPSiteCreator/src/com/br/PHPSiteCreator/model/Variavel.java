@@ -19,6 +19,8 @@ public class Variavel {
 	private String descricao;
 	private int modificador;
 	private boolean estatico;
+	private boolean unico;
+	private boolean indexado;
 
 	/**
 	 * @param nome
@@ -39,6 +41,87 @@ public class Variavel {
 		this.descricao = descricao;
 		this.modificador = Modificador.PRIVADO;
 		this.estatico = false;
+		this.unico = false;
+		this.indexado = false;
+	}
+
+	/**
+	 * @param nome
+	 * @param tipo
+	 * @param tamanho
+	 * @param requerido
+	 * @param chaveEstrangeira
+	 * @param descricao
+	 * @param unico
+	 */
+	public Variavel(String nome, int tipo, int tamanho, boolean requerido,
+			ChaveEstrangeira chaveEstrangeira, String descricao, boolean unico) {
+		super();
+		this.indexado = false;
+		this.nome = nome;
+		this.tipo = tipo;
+		this.tamanho = tamanho;
+		this.requerido = requerido;
+		this.chaveEstrangeira = chaveEstrangeira;
+		this.descricao = descricao;
+		this.modificador = Modificador.PRIVADO;
+		this.estatico = false;
+		this.unico = unico;
+	}
+
+	/**
+	 * @param nome
+	 * @param tipo
+	 * @param tamanho
+	 * @param requerido
+	 * @param chaveEstrangeira
+	 * @param descricao
+	 * @param unico
+	 */
+	public Variavel(String nome, int tipo, int tamanho, boolean requerido,
+			ChaveEstrangeira chaveEstrangeira, String descricao, boolean unico,
+			boolean indexado) {
+		super();
+		this.nome = nome;
+		this.tipo = tipo;
+		this.tamanho = tamanho;
+		this.requerido = requerido;
+		this.chaveEstrangeira = chaveEstrangeira;
+		this.descricao = descricao;
+		this.modificador = Modificador.PRIVADO;
+		this.estatico = false;
+		this.unico = unico;
+		this.indexado = indexado;
+	}
+
+	/**
+	 * @return the indexado
+	 */
+	public boolean isIndexado() {
+		return indexado;
+	}
+
+	/**
+	 * @param indexado
+	 *            the indexado to set
+	 */
+	public void setIndexado(boolean indexado) {
+		this.indexado = indexado;
+	}
+
+	/**
+	 * @return the unico
+	 */
+	public boolean isUnico() {
+		return unico;
+	}
+
+	/**
+	 * @param unico
+	 *            the unico to set
+	 */
+	public void setUnico(boolean unico) {
+		this.unico = unico;
 	}
 
 	/**
