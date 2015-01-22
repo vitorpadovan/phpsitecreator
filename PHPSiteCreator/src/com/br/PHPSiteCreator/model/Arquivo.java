@@ -140,7 +140,7 @@ public class Arquivo {
 		    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.arquivo), "utf-8"));
 		    for(String string : linhas)
 		    {
-		    	 writer.write(string+"\n");
+		    	 writer.write(string);
 		    }
 		   
 		}
@@ -157,16 +157,28 @@ public class Arquivo {
 		}
 		return true;
 	}
+	
+	public void addFrase(String frase)
+	{
+		this.linhas.add(frase);
+	}
 
 	public void addLinha(String linha) {
+		this.linhas.add("\n");
 		this.linhas.add(linha);
 	}
 
 	public void addLinha(String linha, int ident) {
+		this.linhas.add("\n");
 		for (int i = 0; i < ident; i++) {
 			linha = "\t" + linha;
 		}
 		this.linhas.add(linha);
+	}
+	
+	public void proximaLinha()
+	{
+		this.linhas.add("\n");
 	}
 
 }

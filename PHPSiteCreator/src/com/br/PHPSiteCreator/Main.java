@@ -44,7 +44,7 @@ public class Main {
 	
 	private void inicarClassesBasicas()
 	{
-		//TODO Classes basicas desativadas
+		//NOT_USABLE Classes basicas desativadas
 		//new PHPKernel();
 	}
 	

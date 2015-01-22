@@ -53,8 +53,13 @@ public class Classe {
 	/**
 	 * @return the chavePrimaria
 	 */
-	public ChavePrimaria getChavePrimaria() {
+	public ChavePrimaria getChavesPrimarias() {
 		return chavePrimaria;
+	}
+	
+	public Variavel getChavePrimaria()
+	{
+		return chavePrimaria.getChavePrimaria().get(0);
 	}
 
 	/**

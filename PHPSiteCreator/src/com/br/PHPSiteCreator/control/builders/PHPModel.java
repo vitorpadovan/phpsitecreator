@@ -26,9 +26,9 @@ public class PHPModel extends ConstrutorBasico {
 
 	@Override
 	public void variaveis() {
-		if(classe.getChavePrimaria() != null)
+		if(classe.getChavesPrimarias() != null)
 		{
-			for(Variavel var : classe.getChavePrimaria().getChavePrimaria())
+			for(Variavel var : classe.getChavesPrimarias().getChavePrimaria())
 			{
 				arquivo.addLinha("private $"+var.getNome()+";",2);
 			}
@@ -59,9 +59,15 @@ public class PHPModel extends ConstrutorBasico {
 
 	@Override
 	public void corpo() {
+		this.JSON();
 		this.setAll();
 		this.setRequired();
 		
+	}
+	
+	private void JSON()
+	{
+		// TODO implementar
 	}
 	
 	private void setAll()

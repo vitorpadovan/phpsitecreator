@@ -91,25 +91,32 @@ public class PHPDatabase extends ConstrutorBasico {
 	}
 
 	private void excluirDB() {
-		// TODO implementar
+		// THINK
 		this.iniciarFuncao("excluir_db");
 		this.finalizarFuncao();
 	}
 
 	private void atualizarDB() {
-		// TODO implementar
+		// THINK
 		this.iniciarFuncao("atualizar_db");
 		this.finalizarFuncao();
 	}
 	
 	private void lista()
 	{
-		// TODO implementar
+		this.iniciarFuncao("getLista");
+		arquivo.addLinha("$query = \"select * from "+classe.getNome()+"\";",3);
+		arquivo.addLinha("return $this->pesquisa($query);",3);
+		this.finalizarFuncao();
 	}
 	
 	private void pesquisaPorId()
 	{
-		// TODO implementar		
+		this.addParametroFuncao(classe.getChavePrimaria().getNome());
+		this.iniciarFuncao("getListaPor"+this.capitalize(classe.getChavePrimaria().getNome()));
+		arquivo.addLinha("$query = \"select * from "+classe.getNome()+" where "+classe.getChavePrimaria().getNome()+" = \".$"+classe.getChavePrimaria().getNome()+";",3);
+		arquivo.addLinha("return $this->pesquisa($query);",3);
+		this.finalizarFuncao();
 	}
 
 	private void pesquisasDB() {

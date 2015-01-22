@@ -5,6 +5,8 @@ package com.br.PHPSiteCreator.model;
 
 import java.util.List;
 
+import com.br.PHPSiteCreator.util.Debug;
+
 /**
  * @author vitor.padovan89@gmail.com
  *
@@ -21,6 +23,7 @@ public class Variavel {
 	private boolean estatico;
 	private boolean unico;
 	private boolean indexado;
+	private boolean temChaveEstrangeira;
 
 	/**
 	 * @param nome
@@ -37,7 +40,7 @@ public class Variavel {
 		this.tipo = tipo;
 		this.tamanho = tamanho;
 		this.requerido = requerido;
-		this.chaveEstrangeira = chaveEstrangeira;
+		this.setChaveEstrangeira(chaveEstrangeira);
 		this.descricao = descricao;
 		this.modificador = Modificador.PRIVADO;
 		this.estatico = false;
@@ -62,7 +65,7 @@ public class Variavel {
 		this.tipo = tipo;
 		this.tamanho = tamanho;
 		this.requerido = requerido;
-		this.chaveEstrangeira = chaveEstrangeira;
+		this.setChaveEstrangeira(chaveEstrangeira);
 		this.descricao = descricao;
 		this.modificador = Modificador.PRIVADO;
 		this.estatico = false;
@@ -86,12 +89,19 @@ public class Variavel {
 		this.tipo = tipo;
 		this.tamanho = tamanho;
 		this.requerido = requerido;
-		this.chaveEstrangeira = chaveEstrangeira;
+		this.setChaveEstrangeira(chaveEstrangeira);
 		this.descricao = descricao;
 		this.modificador = Modificador.PRIVADO;
 		this.estatico = false;
 		this.unico = unico;
 		this.indexado = indexado;
+	}
+
+	/**
+	 * @return the temChaveEstrangeira
+	 */
+	public boolean isTemChaveEstrangeira() {
+		return temChaveEstrangeira;
 	}
 
 	/**
@@ -226,6 +236,11 @@ public class Variavel {
 	 *            the chaveEstrangeira to set
 	 */
 	public void setChaveEstrangeira(ChaveEstrangeira chaveEstrangeira) {
+
+		if (chaveEstrangeira != null) {
+			Debug.m(chaveEstrangeira.toString());
+			this.temChaveEstrangeira = true;
+		}
 		this.chaveEstrangeira = chaveEstrangeira;
 	}
 
