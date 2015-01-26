@@ -4,16 +4,33 @@ public class ChaveEstrangeira {
 
 	private Classe classe;
 	private int relacionamento;
+	private Variavel v;
 
 	/**
 	 * @param classe
 	 * @param relacionamento
 	 */
-	public ChaveEstrangeira(Classe classe, int relacionamento) {
+	public ChaveEstrangeira(Variavel v, Classe classe, int relacionamento) {
 		super();
 		this.classe = classe;
 		this.setRelacionamento(relacionamento);
+		this.v = v;
 
+	}
+
+	/**
+	 * @return the v
+	 */
+	public Variavel getVariavel() {
+		return v;
+	}
+
+	/**
+	 * @param v
+	 *            the v to set
+	 */
+	public void setVariavel(Variavel v) {
+		this.v = v;
 	}
 
 	/**

@@ -6,6 +6,7 @@ package com.br.PHPSiteCreator;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.br.PHPSiteCreator.control.builders.MySqlScript;
 import com.br.PHPSiteCreator.control.builders.PHPControl;
 import com.br.PHPSiteCreator.control.builders.PHPDatabase;
 import com.br.PHPSiteCreator.control.builders.PHPModel;
@@ -62,6 +63,7 @@ public class Main {
 	
 	private void processar()
 	{
+		MySqlScript script = new MySqlScript();
 		Debug.m("Processando classes");
 		for(Classe classe : classes)
 		{	
@@ -69,7 +71,9 @@ public class Main {
 			new PHPControl(classe);
 			new PHPDatabase(classe);
 			new PHPView(classe);
+			script.addClasse(classe);
 		}
+		script.executar();
 	}
 	
 	private Classe getPessoa()
@@ -104,7 +108,12 @@ public class Main {
 		Classe usuario = new Classe("Usuario");
 		
 		Variavel cod_usuario = new Variavel("cod_usuario", Tipo.INT, 100, true, null, "Código do usuário");
-		Variavel funcionario = new Variavel("funcionario", Tipo.INT, 100, true, new ChaveEstrangeira(this.getPessoa(), Relacionamento.UM_UM), "Código do funcionário relacionado com este usuário",true,true);
+		
+		
+		Variavel funcionario = new Variavel("funcionario", Tipo.INT, 100, true, null , "Código do funcionário relacionado com este usuário",true,true);
+		ChaveEstrangeira c = new ChaveEstrangeira(funcionario, this.getPessoa(), Relacionamento.UM_UM);
+		funcionario.setChaveEstrangeira(c);
+		
 		Variavel login = new Variavel("login", Tipo.VARCHAR, 100, true, null, "Login do usuário",true,true);
 		Variavel senha = new Variavel("senha",Tipo.VARCHAR,50,true, null,"senha do usuário");
 				

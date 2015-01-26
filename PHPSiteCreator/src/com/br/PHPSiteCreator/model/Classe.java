@@ -15,8 +15,10 @@ public class Classe {
 	private String nome;
 	private List<Variavel> variaveis;
 	private ChavePrimaria chavePrimaria;
+	private boolean chaveEstrangeira;
 
 	public Classe(String nome) {
+		this.chaveEstrangeira = false;
 		this.nome = nome;
 		this.variaveis = new ArrayList<Variavel>();
 	}
@@ -30,6 +32,9 @@ public class Classe {
 	}
 
 	public void addVariavel(Variavel var) {
+		if (var.getChaveEstrangeira() != null) {
+			this.chaveEstrangeira = true;
+		}
 		this.variaveis.add(var);
 	}
 
@@ -39,11 +44,9 @@ public class Classe {
 	public List<Variavel> getVariaveis() {
 		return variaveis;
 	}
-	
-	public void addChave(Variavel var)
-	{
-		if(chavePrimaria == null)
-		{
+
+	public void addChave(Variavel var) {
+		if (chavePrimaria == null) {
 			chavePrimaria = new ChavePrimaria(var);
 			return;
 		}
@@ -56,17 +59,31 @@ public class Classe {
 	public ChavePrimaria getChavesPrimarias() {
 		return chavePrimaria;
 	}
-	
-	public Variavel getChavePrimaria()
-	{
+
+	public Variavel getChavePrimaria() {
 		return chavePrimaria.getChavePrimaria().get(0);
 	}
 
 	/**
-	 * @param chavePrimaria the chavePrimaria to set
+	 * @param chavePrimaria
+	 *            the chavePrimaria to set
 	 */
 	public void setChavePrimaria(ChavePrimaria chavePrimaria) {
 		this.chavePrimaria = chavePrimaria;
+	}
+
+	/**
+	 * @return the chaveEstrangeira
+	 */
+	public boolean isChaveEstrangeira() {
+		return chaveEstrangeira;
+	}
+
+	/**
+	 * @param chaveEstrangeira the chaveEstrangeira to set
+	 */
+	public void setChaveEstrangeira(boolean chaveEstrangeira) {
+		this.chaveEstrangeira = chaveEstrangeira;
 	}
 	
 	
