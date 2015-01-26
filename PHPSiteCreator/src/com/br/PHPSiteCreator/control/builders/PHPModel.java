@@ -67,7 +67,13 @@ public class PHPModel extends ConstrutorBasico {
 	
 	private void JSON()
 	{
-		// TODO implementar
+		this.iniciarFuncao("getJSON");
+			for(Variavel v: classe.getVariaveis())
+			{
+				//TODO terminar - Pensar em como tratar os tipos usando tiparVariavel(Variavel var);
+				arquivo.addLinha("$s .= \""+v.getNome()+"\":;",3);
+			}
+		this.finalizarFuncao();
 	}
 	
 	private void setAll()
