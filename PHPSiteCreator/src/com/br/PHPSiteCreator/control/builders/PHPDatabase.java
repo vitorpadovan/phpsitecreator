@@ -60,6 +60,11 @@ public class PHPDatabase extends ConstrutorBasico {
 		this.lista();
 		this.pesquisasDB();
 	}
+	
+	private void getBackup()
+	{
+		//TODO implementar
+	}
 
 	private void salvarDB() {
 		this.addParametroFuncao("" + this.classe.getNome());
