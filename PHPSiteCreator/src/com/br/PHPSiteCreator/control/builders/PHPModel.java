@@ -6,6 +6,7 @@ package com.br.PHPSiteCreator.control.builders;
 import java.io.File;
 
 import com.br.PHPSiteCreator.model.Classe;
+import com.br.PHPSiteCreator.model.Tipo;
 import com.br.PHPSiteCreator.model.Variavel;
 
 /**
@@ -70,10 +71,32 @@ public class PHPModel extends ConstrutorBasico {
 		this.iniciarFuncao("getJSON");
 			for(Variavel v: classe.getVariaveis())
 			{
-				//TODO terminar - Pensar em como tratar os tipos usando tiparVariavel(Variavel var);
-				arquivo.addLinha("$s .= \""+v.getNome()+"\":;",3);
+				arquivo.addLinha("$s .= \""+v.getNome()+"\":"+variavelJSON(v)+";",3);
 			}
 		this.finalizarFuncao();
+	}
+	
+	private String variavelJSON(Variavel var)
+	{
+		switch(var.getTipo())
+		{
+		case Tipo.DATE:
+			return "\""+var.getNome()+"\"";
+		case Tipo.DATETIME:
+			return "\""+var.getNome()+"\"";
+		case Tipo.DINHEIRO:
+			return var.getNome();
+		case Tipo.EMAIL:
+			return "\""+var.getNome()+"\"";
+		case Tipo.TEXTO:
+			return "\""+var.getNome()+"\"";
+		case Tipo.VARCHAR:
+			return "\""+var.getNome()+"\"";
+		case Tipo.INT:
+			return var.getNome();
+		default:
+			return var.getNome();
+		}
 	}
 	
 	private void setAll()

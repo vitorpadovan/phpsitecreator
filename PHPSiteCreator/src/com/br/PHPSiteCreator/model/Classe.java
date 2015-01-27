@@ -6,6 +6,8 @@ package com.br.PHPSiteCreator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.br.PHPSiteCreator.util.Debug;
+
 /**
  * @author vitor.padovan89@gmail.com
  *
@@ -61,6 +63,7 @@ public class Classe {
 	}
 
 	public Variavel getChavePrimaria() {
+		Debug.m("Minha classe é "+this.nome);
 		return chavePrimaria.getChavePrimaria().get(0);
 	}
 

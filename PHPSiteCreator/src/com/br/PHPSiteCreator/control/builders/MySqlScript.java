@@ -109,13 +109,36 @@ public class MySqlScript {
 		
 		for(Classe c2 : classes)
 		{
-			for(Variavel v : c2.getVariaveis())
+			List<Variavel> vars = c2.getVariaveis();
+			for(Variavel v : vars)
 			{
-				arquivo.addLinha(c2.getNome()+"."+v.getNome() + " as "+c2.getNome()+"_"+v.getNome() );
-				if(c2.getVariaveis().indexOf(v)<c2.getVariaveis().size()-1)
+				arquivo.addLinha(c2.getNome()+"."+v.getNome() + " as "+c2.getNome()+"_"+v.getNome());
+				
+				//arquivo.addFrase( "/* C:"+classes.indexOf(c2)+"*/");
+				//arquivo.addFrase( "/* V:"+vars.indexOf(v)+"*/");
+				//arquivo.proximaLinha();
+				//arquivo.addFrase( "/* TC:"+(classes.size()-1)+"*/");
+				//arquivo.addFrase( "/* TV:"+vars.size()+"*/");
+				//arquivo.proximaLinha();
+				
+				
+				
+				/**
+				 * Os testes estão aqui
+				 */
+				//boolean teste;
+				//teste = vars.indexOf(v)!=vars.size()-1;
+				//arquivo.addFrase( "/* TV:"+teste+"*/");
+				
+				//teste = classes.indexOf(c2)!=(classes.size()-1);
+				//arquivo.addFrase( "/* TC:"+teste+" "+classes.indexOf(c2)+"!="+(classes.size()-1)+" */");
+				
+				if(vars.indexOf(v)!=vars.size()-1 || classes.indexOf(c2)!=classes.size()-1)
 				{
 					arquivo.addFrase(",");
 				}
+				
+				//arquivo.proximaLinha();arquivo.proximaLinha();arquivo.proximaLinha();
 			}
 		}
 		arquivo.addLinha("from "+c.getNome());
