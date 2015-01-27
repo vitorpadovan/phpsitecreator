@@ -18,8 +18,8 @@ public class SiteInfo {
 	public SiteInfo(String nome) {
 		super();
 		SiteInfo.siteName = nome;
-		SiteInfo.pastaBase = System.getProperty("user.home") + File.separator
-				+ "Desktop" + File.separator + SiteInfo.siteName;
+		SiteInfo.pastaBase = "C:\\Users\\vitor_000\\Dropbox\\Servico\\nipp2";
+		//SiteInfo.pastaBase = System.getProperty("user.home") + File.separator	+ "Desktop" + File.separator + SiteInfo.siteName;
 	}
 
 	public static String getPastaBase() {

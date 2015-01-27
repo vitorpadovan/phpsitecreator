@@ -8,6 +8,7 @@ import java.io.File;
 import com.br.PHPSiteCreator.model.Classe;
 import com.br.PHPSiteCreator.model.Tipo;
 import com.br.PHPSiteCreator.model.Variavel;
+import com.br.PHPSiteCreator.util.Debug;
 
 /**
  * @author vitor.padovan89@gmail.com
@@ -24,6 +25,26 @@ public class PHPDatabase extends ConstrutorBasico {
 		super(classe, "system" + File.separator + "database", "DB_",
 				".class.php");
 		// NOT_USABLE não precisa disto
+	}
+	
+	@Override
+	protected void abrirArquivo()
+	{
+		arquivo.addLinha("<?php");
+		arquivo.addLinha("require_once('MySql.class.php');",1);
+		arquivo.addLinha("class "+this.iniciaisConstrutor+this.classe.getNome()+ " extends MySql",1);
+		arquivo.addLinha("{",1);
+		Debug.m("Abrindo um arquivo");
+	}
+	
+	@Override
+	protected void construtor() {
+		arquivo.addLinha("");
+		arquivo.addLinha("public function __construct()",2);
+		arquivo.addLinha("{",2);
+			arquivo.addLinha("Debug::m(\"Construindo a classe "+this.iniciaisConstrutor+classe.getNome()+"\",\"h1\");",3);
+			arquivo.addLinha("parent::__construct();",3);
+		arquivo.addLinha("}",2);
 	}
 
 	/*
@@ -54,6 +75,7 @@ public class PHPDatabase extends ConstrutorBasico {
 	 */
 	@Override
 	public void corpo() {
+		this.extrairDB();
 		this.salvarDB();
 		this.excluirDB();
 		this.atualizarDB();
@@ -66,10 +88,10 @@ public class PHPDatabase extends ConstrutorBasico {
 	private void getBackup()
 	{
 		this.iniciarFuncao("getBackup");
-			arquivo.addLinha("$d = new DB_"+classe.getNome()+"()",3);
+			arquivo.addLinha("$d = new DB_"+classe.getNome()+"();",3);
 			arquivo.addLinha("$l = $d->getLista(\"cod\");",3);
-			arquivo.addLinha("$r = \"\"");
-			arquivo.addLinha("for($i = 0;$i<$l->getSize();$i++)");
+			arquivo.addLinha("$r = \"\";",3);
+			arquivo.addLinha("for($i = 0;$i<$l->getSize();$i++)",3);
 			arquivo.addLinha("{",3);
 				arquivo.addLinha("$t = $l->get($i);",4);
 				arquivo.addLinha("$sql = new DML_SQL(\""+classe.getNome()+"\");",4);
@@ -123,7 +145,7 @@ public class PHPDatabase extends ConstrutorBasico {
 		this.arquivo.addLinha("$sql = new DML_SQL(\""+this.classe.getNome()+"\");",4);
 		for (Variavel v : this.classe.getVariaveis()) {
 			
-			this.arquivo.addLinha("$sql->addInsert(\""+v.getNome()+"\",$"+v.getNome()+")",4);
+			this.arquivo.addLinha("$sql->addInsert(\""+v.getNome()+"\",$"+v.getNome()+");",4);
 		}
 		this.arquivo.addLinha("$string_sql = $sql->getInsert();",4);
 		this.arquivo.addLinha("return $this->inserir($string_sql);",4);
@@ -173,6 +195,19 @@ public class PHPDatabase extends ConstrutorBasico {
 			}
 		}
 
+	}
+	
+	private void extrairDB()
+	{
+		this.addParametroFuncao("obj");
+		this.iniciarFuncao("extrair_item");
+			arquivo.addLinha("$resultado = new "+classe.getNome()+";",3);
+			for(Variavel v : classe.getVariaveis())
+			{
+				arquivo.addLinha("$resultado->set"+this.capitalize(v.getNome())+"($obj->"+v.getNome()+");",4);
+			}
+			arquivo.addLinha("return $resultado;",3);
+			this.finalizarFuncao();
 	}
 
 }

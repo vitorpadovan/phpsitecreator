@@ -47,12 +47,12 @@ public class PHPModel extends ConstrutorBasico {
 		{
 			this.addParametroFuncao(var.getNome());
 			this.iniciarFuncao("set"+this.capitalize(var.getNome()));
-			//REMOVE Debug arquivo.addLinha("#Debug::m(\"set do "+this.capitalize(var.getNome())+"\");",3);
+			arquivo.addLinha("#Debug::m(\"set do "+this.capitalize(var.getNome())+"\");",3);
 			arquivo.addLinha("$this->"+var.getNome()+" = $"+var.getNome()+";",3);
 			this.finalizarFuncao();
 			
 			this.iniciarFuncao("get"+this.capitalize(var.getNome()));
-			//REMOVE Debug arquivo.addLinha("#Debug::m(\"get do "+this.capitalize(var.getNome())+"\");",3);
+			arquivo.addLinha("#Debug::m(\"get do "+this.capitalize(var.getNome())+"\");",3);
 			arquivo.addLinha("return $this->"+var.getNome()+";",3);
 			this.finalizarFuncao();
 		}
@@ -71,7 +71,7 @@ public class PHPModel extends ConstrutorBasico {
 		this.iniciarFuncao("getJSON");
 			for(Variavel v: classe.getVariaveis())
 			{
-				arquivo.addLinha("$s .= \""+v.getNome()+"\":"+variavelJSON(v)+";",3);
+				arquivo.addLinha("$s .= '\""+v.getNome()+"\":"+variavelJSON(v)+"';",3);
 			}
 		this.finalizarFuncao();
 	}
@@ -101,12 +101,13 @@ public class PHPModel extends ConstrutorBasico {
 	
 	private void setAll()
 	{
+		//TODO adicionar as chaves estrangeiras
 		for(Variavel v : this.classe.getVariaveis())
 		{
 			this.addParametroFuncao(v.getNome());
 		}
 		this.iniciarFuncao("setAll");
-		//REMOVE Debug arquivo.addLinha("#Debug::m(\"setAll do "+classe.getNome()+"\");",3);
+		arquivo.addLinha("#Debug::m(\"setAll do "+classe.getNome()+"\");",3);
 		for(Variavel v : this.classe.getVariaveis())
 		{	
 			arquivo.addLinha("$this->"+v.getNome()+" = $"+v.getNome()+";",3);
@@ -124,7 +125,7 @@ public class PHPModel extends ConstrutorBasico {
 			}
 		}
 		this.iniciarFuncao("setRequired");
-		//REMOVE Debug arquivo.addLinha("#Debug::m(\"setRequired do "+classe.getNome()+"\");",3);
+		arquivo.addLinha("#Debug::m(\"setRequired do "+classe.getNome()+"\");",3);
 		for(Variavel v : this.classe.getVariaveis())
 		{
 			if(v.isRequerido())

@@ -54,15 +54,19 @@ public class Main {
 
 	private void adicionarClasses() {
 		Debug.m("Adicionando classes");
-		this.classes.add(getPessoa());
-		this.classes.add(getUsuario());
-		this.classes.add(getCargo());
-		classes.add(getRelacaoPessoaCargo());
+		classes.add(getPessoa());
+		classes.add(getUsuario());
+		classes.add(getCargo());
 		classes.add(getAtividade());
 		classes.add(getServico());
 		classes.add(getLocais());
 		classes.add(getPatrimonio());
 		classes.add(getChamado());
+		classes.add(getTramite());
+		
+		classes.add(getRelacaoPessoaCargo());
+		classes.add(getRelacaoAtividadePessoa());
+		classes.add(getRelacaoServicoUsuario());
 	}
 
 	private void processar() {
@@ -96,9 +100,12 @@ public class Main {
 				"CPF da pessoa", true, true);
 		Variavel curriculo_lattes = new Variavel("curriculo_lattes",
 				Tipo.VARCHAR, 100, false, null, "Curriculo Lattes da pessoa",
-				true, true);
+				false, true);
 		Variavel numero_funcional = new Variavel("numero_funcional",
 				Tipo.VARCHAR, 100, false, null, "Numero funcional da pessoa");
+
+		Variavel foto = new Variavel("foto", Tipo.VARCHAR, 100, false, null,
+				"Numero funcional da pessoa");
 
 		pessoa.addChave(cod_pessoa);
 		pessoa.addVariavel(nome);
@@ -108,6 +115,7 @@ public class Main {
 		pessoa.addVariavel(cpf);
 		pessoa.addVariavel(curriculo_lattes);
 		pessoa.addVariavel(numero_funcional);
+		pessoa.addVariavel(foto);
 
 		return pessoa;
 	}
@@ -157,7 +165,7 @@ public class Main {
 	}
 
 	private Classe getRelacaoPessoaCargo() {
-		Classe resultado = new Classe("RelacaoPessoaCargo");
+		Classe resultado = new Classe("relacao_pessoa_cargo");
 
 		Variavel cod_relacao_pessoa_cargo = new Variavel(
 				"cod_relacao_pessoa_cargo", Tipo.INT, 100, true, null,
@@ -217,7 +225,7 @@ public class Main {
 
 	private Classe getLocais() {
 		Classe r = new Classe("Locais");
-		Variavel cod_servico = new Variavel("cod_servico", Tipo.INT, 100, true,
+		Variavel cod_servico = new Variavel("cod_local", Tipo.INT, 100, true,
 				null, "Código do local");
 		Variavel local = new Variavel("local", Tipo.VARCHAR, 100, true, null,
 				"Nome do local");
@@ -256,11 +264,11 @@ public class Main {
 		Variavel situacao = new Variavel("situacao", Tipo.VARCHAR, 100, true,
 				null, "Responsável pelo patrimonio");
 
-		Variavel data_cadastro = new Variavel("data_cadastro", Tipo.VARCHAR, 100, true,
-				null, "Responsável pelo patrimonio");
+		Variavel data_cadastro = new Variavel("data_cadastro", Tipo.VARCHAR,
+				100, true, null, "Responsável pelo patrimonio");
 
-		Variavel observacao = new Variavel("observacao", Tipo.TEXTO, 100, false,
-				null, "Responsável pelo patrimonio");
+		Variavel observacao = new Variavel("observacao", Tipo.TEXTO, 100,
+				false, null, "Responsável pelo patrimonio");
 
 		ChaveEstrangeira chResponsavel = new ChaveEstrangeira(responsavel,
 				getPessoa(), Relacionamento.MUITOS_UM);
@@ -301,7 +309,7 @@ public class Main {
 				"Código do chamado");
 		Variavel chamado = new Variavel("chamado", Tipo.TEXTO, 100, true, null,
 				"Código do chamado");
-		Variavel conclusao = new Variavel("conclusao", Tipo.TEXTO, 100, true,
+		Variavel conclusao = new Variavel("conclusao", Tipo.TEXTO, 100, false,
 				null, "Código do chamado");
 		Variavel patrimonio = new Variavel("patrimonio", Tipo.INT, 100, true,
 				null, "Código do chamado");
@@ -331,4 +339,95 @@ public class Main {
 		return r;
 	}
 
+	private Classe getTramite() {
+		Classe r = new Classe("Tramite");
+		Variavel cod_tramite = new Variavel("cod_tramite", Tipo.INT, 100, true,
+				null, "Código do chamado");
+		Variavel data_registro = new Variavel("data_registro", Tipo.DATETIME,
+				100, true, null, "Código do chamado");
+		Variavel chamado = new Variavel("chamado", Tipo.INT, 100, true, null,
+				"Código do chamado");
+
+		Variavel descricao = new Variavel("descricao", Tipo.TEXTO, 100, true,
+				null, "Código do chamado");
+
+		ChaveEstrangeira chChamado = new ChaveEstrangeira(chamado,
+				getChamado(), Relacionamento.UM_MUITOS);
+		chamado.setChaveEstrangeira(chChamado);
+
+		r.addChave(cod_tramite);
+		r.addVariavel(data_registro);
+		r.addVariavel(chamado);
+		r.addVariavel(descricao);
+
+		return r;
+	}
+
+	private Classe getTesesEDissertacoes() {
+		// TODO pensar depois, curso, aluno, titulo, orientador, local da
+		// defesa, titulo em três linguas, resumo, e PDF
+		return null;
+	}
+
+	private Classe getRelacaoAtividadePessoa() {
+		Classe r = new Classe("relacao_atividade_pessoa");
+
+		Variavel codRelacaoAtividadePessoa = new Variavel(
+				"cod_relacao_atividade_pessoa", Tipo.INT, 100, true, null,
+				"Código da relacao");
+
+		Variavel pessoa = new Variavel("pessoa", Tipo.INT, 100, true, null,
+				"Código da relacao");
+		Variavel atividade = new Variavel("atividade", Tipo.INT, 100, true, null,
+				"Código da relacao");
+		Variavel data_cadastro = new Variavel("data_cadastro", Tipo.DATETIME, 100, true,
+				null, "Código da relacao");
+		Variavel validade = new Variavel("validade", Tipo.DATETIME, 100, false, null,
+				"Código da relacao");
+
+		ChaveEstrangeira chPessoa = new ChaveEstrangeira(pessoa, getPessoa(),
+				Relacionamento.MUITOS_MUITOS);
+		ChaveEstrangeira chAtividade = new ChaveEstrangeira(atividade,
+				getAtividade(), Relacionamento.MUITOS_MUITOS);
+
+		pessoa.setChaveEstrangeira(chPessoa);
+		pessoa.setIndexado(true);
+
+		atividade.setChaveEstrangeira(chAtividade);
+		atividade.setIndexado(true);
+
+		r.addChave(codRelacaoAtividadePessoa);
+		r.addVariavel(pessoa);
+		r.addVariavel(atividade);
+		r.addVariavel(data_cadastro);
+		r.addVariavel(validade);
+
+		return r;
+	}
+	
+	private Classe getRelacaoServicoUsuario()
+	{
+		Classe r = new Classe("relacao_servico_usuario");
+		
+		Variavel cod_relacao = new Variavel("cod_relacao_servico_usuario",Tipo.INT,100, true, null,"Código da relação");
+		
+		Variavel servico = new Variavel("servico",Tipo.INT,100, true, null,"Código do servico");
+		Variavel usuario = new Variavel("usuario",Tipo.INT,100, true,null,"Código do usuário");
+		Variavel data_registro = new Variavel("data_registro",Tipo.DATETIME,100,true, null,"Data do registro do funcionário");
+		
+		ChaveEstrangeira chServico = new ChaveEstrangeira(servico, getServico(), Relacionamento.MUITOS_MUITOS);
+		ChaveEstrangeira chUsuario = new ChaveEstrangeira(usuario, getUsuario(), Relacionamento.MUITOS_MUITOS);
+		
+		servico.setChaveEstrangeira(chServico);
+		usuario.setChaveEstrangeira(chUsuario);
+		servico.setIndexado(true);
+		usuario.setIndexado(true);
+		
+		r.addChave(cod_relacao);
+		r.addVariavel(servico);
+		r.addVariavel(usuario);
+		r.addVariavel(data_registro);
+		
+		return r;
+	}
 }

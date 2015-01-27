@@ -52,8 +52,10 @@ public class PHPView extends ConstrutorBasico {
 		for (Variavel v : this.classe.getVariaveis()) {
 			this.addParametroFuncao(v.getNome());
 			this.iniciarFuncao("set" + this.capitalize(v.getNome()) + "Name");
+			arquivo.addLinha("Debug::m(\"Metodo set"+this.capitalize(v.getNome())+"Name()\",\"h2\",\""+classe.getNome()+"\");",3);
 			arquivo.addLinha("if(strlen($" + v.getNome() + ")>0)", 3);
 			arquivo.addLinha("{", 3);
+			arquivo.addLinha("Debug::m(\"set"+this.capitalize(v.getNome())+"Name() possui um valor não vazio\",\"h2\",\""+classe.getNome()+"\");",4);
 			arquivo.addLinha("$this->show_" + v.getNome() + " = true;", 4);
 			arquivo.addLinha(
 					"$this->" + v.getNome() + "_display_name = $" + v.getNome()
@@ -171,24 +173,25 @@ public class PHPView extends ConstrutorBasico {
 			arquivo.addLinha("if(is_null($l))",3);
 			arquivo.addLinha("{return;}",3);
 			arquivo.addLinha("$s = '<table>';",3);
-				arquivo.addLinha("$s .= '<tr>'",4);
+				arquivo.addLinha("$s .= '<tr>';",4);
 				for(Variavel v : classe.getVariaveis())
 				{
-					arquivo.addLinha("if($show_"+v.getNome()+")",4);
+					arquivo.addLinha("if($this->show_"+v.getNome()+")",4);
 					arquivo.addLinha("{",4);
 						arquivo.addLinha("$s .= '<th>';",5);
-							arquivo.addLinha("$s .= $this->"+v.getNome()+"_display_name()",6);
+							arquivo.addLinha("$s .= $this->"+v.getNome()+"_display_name;",6);
 							arquivo.addLinha("$s .= '</th>';",5);
 					arquivo.addLinha("}",4);
 				}
-				arquivo.addLinha("$t = $l->get($i);",4);
-				arquivo.addLinha("$s .= '</tr>'",4);
+				
+				arquivo.addLinha("$s .= '</tr>';",4);
 				arquivo.addLinha("for($i = 0; $i<$l->getSize();$i++)",4);
 				arquivo.addLinha("{",4);
+					arquivo.addLinha("$t = $l->get($i);",5);
 					arquivo.addLinha("$s .= '<tr>';",5);
 						for(Variavel v : classe.getVariaveis())
 						{
-							arquivo.addLinha("if($show_"+v.getNome()+")",5);
+							arquivo.addLinha("if($this->show_"+v.getNome()+")",5);
 							arquivo.addLinha("{",5);
 								arquivo.addLinha("$s .= '<td>';",6);
 									arquivo.addLinha("$s .= $t->get"+capitalize(v.getNome())+"();",7);
@@ -205,11 +208,11 @@ public class PHPView extends ConstrutorBasico {
 
 	public void cadastro() {
 		iniciarFuncao("cadastro");
-			arquivo.addLinha("#s = '<form>';",3);
+			arquivo.addLinha("$s = '<form>';",3);
 				arquivo.addLinha("$s .= '<table>';",4);
 					for(Variavel v: classe.getVariaveis())
 					{
-						arquivo.addLinha("if($show_"+v.getNome()+")",5);
+						arquivo.addLinha("if($this->show_"+v.getNome()+")",5);
 						arquivo.addLinha("{",5);
 						arquivo.addLinha("$s .= '<tr>';",5);
 							arquivo.addLinha("$s .= '<td>';",6);
@@ -218,9 +221,11 @@ public class PHPView extends ConstrutorBasico {
 							arquivo.addLinha("$s .= '<td>';",6);
 								if(v.isTemChaveEstrangeira())
 								{
-									arquivo.addLinha("$view = new VW_"+v.getChaveEstrangeira().getClasse().getNome()+"();",7);
+									arquivo.addLinha("$view"+v.getNome()+" = new VW_"+v.getChaveEstrangeira().getClasse().getNome()+"();",7);
+									arquivo.addLinha("$view"+v.getNome()+"->getCmb();",7);
+									//FIXME Colocar o tipo de view que será utilizado
 								}
-								arquivo.addLinha("$s .= "+this.campos(v)+";",7);
+								arquivo.addLinha("$s .= '"+this.campos(v)+"';",7);
 							arquivo.addLinha("$s .= '<td>';",6);	
 						arquivo.addLinha("$s .= '</tr>';",5);
 						arquivo.addLinha("}",5);
