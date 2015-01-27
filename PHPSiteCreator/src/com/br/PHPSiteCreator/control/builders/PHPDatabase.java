@@ -6,6 +6,7 @@ package com.br.PHPSiteCreator.control.builders;
 import java.io.File;
 
 import com.br.PHPSiteCreator.model.Classe;
+import com.br.PHPSiteCreator.model.Tipo;
 import com.br.PHPSiteCreator.model.Variavel;
 
 /**
@@ -59,11 +60,47 @@ public class PHPDatabase extends ConstrutorBasico {
 		this.pesquisaPorId();
 		this.lista();
 		this.pesquisasDB();
+		this.getBackup();
 	}
 	
 	private void getBackup()
 	{
-		//TODO implementar
+		this.iniciarFuncao("getBackup");
+			arquivo.addLinha("$d = new DB_"+classe.getNome()+"()",3);
+			arquivo.addLinha("$l = $d->getLista(\"cod\");",3);
+			arquivo.addLinha("$r = \"\"");
+			arquivo.addLinha("for($i = 0;$i<$l->getSize();$i++)");
+			arquivo.addLinha("{",3);
+				arquivo.addLinha("$t = $l->get($i);",4);
+				arquivo.addLinha("$sql = new DML_SQL(\""+classe.getNome()+"\");",4);
+				for(Variavel v : classe.getVariaveis())
+				{
+					arquivo.addLinha("$sql->addInsert(\""+v.getNome()+"\",$t->getCod()"+tratarTipo(v)+");",4);
+				}
+			arquivo.addLinha("}",3);
+		this.finalizarFuncao();
+	}
+	
+	private String tratarTipo(Variavel v)
+	{
+		switch(v.getTipo())
+		{
+		case Tipo.DATE:
+			break;
+		case Tipo.DATETIME:
+			break;
+		case Tipo.DINHEIRO:
+			break;
+		case Tipo.EMAIL:
+			break;
+		case Tipo.INT:
+			return ",DML_SQL::Numeric()";
+		case Tipo.TEXTO:
+			break;
+		case Tipo.VARCHAR:
+			break;
+		}
+		return "";
 	}
 
 	private void salvarDB() {

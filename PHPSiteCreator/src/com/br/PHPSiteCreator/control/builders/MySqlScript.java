@@ -43,7 +43,6 @@ public class MySqlScript {
 	
 	private void iniciar()
 	{
-		//TODO implemetar
 		this.iniciarArquivo();
 			this.montarTable();
 		this.finalizarArquivo();
@@ -67,6 +66,11 @@ public class MySqlScript {
 			for(Variavel v: c.getVariaveis())
 			{
 				arquivo.addLinha(v.getNome() + " "+this.selecionarTipo(v), 1);
+				if(v.isIndexado())
+				{
+					arquivo.addFrase(",");
+					arquivo.addFrase("index("+v.getNome()+")");
+				}
 				if(c.getVariaveis().indexOf(v)<c.getVariaveis().size()-1)
 				{
 					arquivo.addFrase(",");
@@ -179,19 +183,21 @@ public class MySqlScript {
 			resultado = resultado + "varchar("+var.getTamanho()+")";
 			break;
 		}
-		//TODO implementar
+		
+		if(var.isRequerido())
+			resultado = resultado + " not null";
+		if(var.isUnico())
+			resultado = resultado + " unique";
 		return resultado;
 	}
 	
 	private void finalizarArquivo()
 	{
-		//TODO implemetar
 	}
 	
 	private void finalizar()
 	{
 		this.arquivo.gravar();
-		// TODO implementar
 	}
 
 }
