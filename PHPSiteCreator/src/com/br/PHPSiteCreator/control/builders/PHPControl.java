@@ -46,6 +46,7 @@ public class PHPControl extends ConstrutorBasico {
 
 	private void salvar() {
 		this.iniciarFuncao("cadastrar");
+			arquivo.addLinha("Debug::m('Cadastrando um item da classe "+classe.getNome()+"');",3);
 			arquivo.addLinha("if(",3);
 			for(Variavel v : this.classe.getVariaveis())
 			{
@@ -58,8 +59,9 @@ public class PHPControl extends ConstrutorBasico {
 					arquivo.addFrase("isset($_POST['"+v.getNome()+"'])");
 				}
 			}
-			arquivo.addFrase(");");
+			arquivo.addFrase(")");
 			arquivo.addLinha("{",3);
+			arquivo.addLinha("Debug::m('Itens mínimos atendidos');",4);
 				arquivo.addLinha("if(",4);
 				for(Variavel v : this.classe.getVariaveis())
 				{
@@ -72,11 +74,23 @@ public class PHPControl extends ConstrutorBasico {
 						arquivo.addFrase("!empty($_POST['"+v.getNome()+"'])");
 					}
 				}
-				arquivo.addFrase(");");
+				arquivo.addFrase(")");
 				arquivo.addLinha("{",4);
+					arquivo.addLinha("Debug::m('Itens mínimos não vazios');",5);
+					arquivo.addLinha("$"+classe.getNome()+" = new "+classe.getNome()+"();",5);
+					arquivo.addLinha("$"+classe.getNome()+"->setAll(",5);
+					for(Variavel v: classe.getVariaveis())
+					{
+						arquivo.addFrase("$_POST['"+v.getNome()+"']");
+						if(classe.getVariaveis().indexOf(v) != classe.getVariaveis().size()-1)
+						{
+							arquivo.addFrase(",");
+						}
+					}
+					arquivo.addFrase(");");
 					arquivo.addLinha("$d = new DB_"+this.classe.getNome()+";",5);
-					arquivo.addLinha("$id = $d->salvar(",5);
-					for(Variavel v : this.classe.getVariaveis())
+					arquivo.addLinha("$id = $d->salvar_db($"+classe.getNome()+");",5);
+					/*for(Variavel v : this.classe.getVariaveis())
 					{
 						if(this.classe.getVariaveis().indexOf(v)>0)
 						{
@@ -87,7 +101,7 @@ public class PHPControl extends ConstrutorBasico {
 							arquivo.addFrase("$_POST['"+v.getNome()+"']");
 						}
 					}
-					arquivo.addFrase(");");
+					arquivo.addFrase(");");*/
 					arquivo.addLinha("return $id;",5);
 				arquivo.addLinha("}",4);
 				

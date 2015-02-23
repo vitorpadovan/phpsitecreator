@@ -134,18 +134,16 @@ public class PHPDatabase extends ConstrutorBasico {
 		for (Variavel v : this.classe.getVariaveis()) {
 			if(v.isRequerido())
 			{		
-				this.arquivo.addLinha("if($"+v.getNome()+" === NULL)", 4);
+				this.arquivo.addLinha("if($"+classe.getNome()+"->get"+capitalize(v.getNome())+"() === NULL)", 4);
 				this.arquivo.addLinha("{",4);
 					this.arquivo.addLinha("return false;",5);
 				this.arquivo.addLinha("}",4);
-				
-				
 			}
 		}
 		this.arquivo.addLinha("$sql = new DML_SQL(\""+this.classe.getNome()+"\");",4);
 		for (Variavel v : this.classe.getVariaveis()) {
 			
-			this.arquivo.addLinha("$sql->addInsert(\""+v.getNome()+"\",$"+v.getNome()+");",4);
+			this.arquivo.addLinha("$sql->addInsert(\""+v.getNome()+"\",$"+classe.getNome()+"->get"+capitalize(v.getNome())+"());",4);
 		}
 		this.arquivo.addLinha("$string_sql = $sql->getInsert();",4);
 		this.arquivo.addLinha("return $this->inserir($string_sql);",4);

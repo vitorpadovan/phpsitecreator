@@ -78,7 +78,7 @@ public abstract class ConstrutorBasico {
 		arquivo.addLinha("");
 		arquivo.addLinha("public function __destruct()",2);
 		arquivo.addLinha("{",2);
-			arquivo.addLinha("Debug::m(\"Destruindo a classe "+classe.getNome()+"\",\"h1\");",3);
+			arquivo.addLinha("Debug::m(\"Destruindo a classe "+this.iniciaisConstrutor+classe.getNome()+"\",\"h1\");",3);
 		arquivo.addLinha("}",2);
 
 	}
@@ -130,6 +130,7 @@ public abstract class ConstrutorBasico {
 		nomeFuncao += ")";
 		arquivo.addLinha(nomeFuncao,2);
 		arquivo.addLinha("{",2);
+		arquivo.addLinha("Debug::m('Executando a função ("+nomeFuncao+") na classe "+this.iniciaisConstrutor+classe.getNome()+"');",3);
 		
 	}
 	
