@@ -78,16 +78,15 @@ public class PHPControl extends ConstrutorBasico {
 				arquivo.addLinha("{",4);
 					arquivo.addLinha("Debug::m('Itens mínimos não vazios');",5);
 					arquivo.addLinha("$"+classe.getNome()+" = new "+classe.getNome()+"();",5);
-					arquivo.addLinha("$"+classe.getNome()+"->setAll(",5);
+					/*arquivo.addLinha("$"+classe.getNome()+"->setAll(",5);*/
 					for(Variavel v: classe.getVariaveis())
 					{
-						arquivo.addFrase("$_POST['"+v.getNome()+"']");
-						if(classe.getVariaveis().indexOf(v) != classe.getVariaveis().size()-1)
-						{
-							arquivo.addFrase(",");
-						}
+						arquivo.addLinha("if(isset($_POST['"+v.getNome()+"']))",5);
+						arquivo.addLinha("{",5);
+							arquivo.addLinha("$"+classe.getNome()+"->set"+this.capitalize(v.getNome())+"($_POST['"+v.getNome()+"']);",6);
+						arquivo.addLinha("}",5);
 					}
-					arquivo.addFrase(");");
+					//arquivo.addFrase(");");
 					arquivo.addLinha("$d = new DB_"+this.classe.getNome()+";",5);
 					arquivo.addLinha("$id = $d->salvar_db($"+classe.getNome()+");",5);
 					/*for(Variavel v : this.classe.getVariaveis())

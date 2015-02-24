@@ -5,6 +5,7 @@ package com.br.PHPSiteCreator.control.builders;
 
 import java.io.File;
 
+import com.br.PHPSiteCreator.model.ChavePrimaria;
 import com.br.PHPSiteCreator.model.Classe;
 import com.br.PHPSiteCreator.model.Tipo;
 import com.br.PHPSiteCreator.model.Variavel;
@@ -43,6 +44,18 @@ public class PHPModel extends ConstrutorBasico {
 
 	@Override
 	public void getsAndSets() {
+		Variavel ch = classe.getChavePrimaria();
+		this.addParametroFuncao(ch.getNome());
+		this.iniciarFuncao("set"+this.capitalize(ch.getNome()));
+		arquivo.addLinha("#Debug::m(\"set do "+this.capitalize(ch.getNome())+"\");",3);
+		arquivo.addLinha("$this->"+ch.getNome()+" = $"+ch.getNome()+";",3);
+		this.finalizarFuncao();
+		
+		this.iniciarFuncao("get"+this.capitalize(ch.getNome()));
+		arquivo.addLinha("#Debug::m(\"get do "+this.capitalize(ch.getNome())+"\");",3);
+		arquivo.addLinha("return $this->"+ch.getNome()+";",3);
+		this.finalizarFuncao();
+		
 		for(Variavel var : this.classe.getVariaveis())
 		{
 			this.addParametroFuncao(var.getNome());

@@ -72,6 +72,10 @@ public class PHPView extends ConstrutorBasico {
 			arquivo.addLinha("}", 3);
 			this.finalizarFuncao();
 			// arquivo.addLinha("private set"+this.capitalize(v.getNome())+"Name;",2);
+			
+			this.iniciarFuncao("hide"+this.capitalize(v.getNome()));
+				arquivo.addLinha("$this->show_"+v.getNome()+" = false;",3);
+			this.finalizarFuncao();
 		}
 	}
 
@@ -83,7 +87,7 @@ public class PHPView extends ConstrutorBasico {
 	@Override
 	public void corpo() {
 		this.clearShows();
-		this.comboBox();
+		this.getCmb();
 		this.checkBox();
 		this.tabela();
 		this.cadastro();
@@ -120,7 +124,7 @@ public class PHPView extends ConstrutorBasico {
 		this.finalizarFuncao();
 	}
 
-	public void comboBox() {
+	public void getCmb() {
 		this.iniciarFuncao("getCmb");
 		arquivo.addLinha("$d = new DB_" + classe.getNome() + ";", 3);
 		arquivo.addLinha("$l = $d->getLista();", 3);
@@ -130,7 +134,7 @@ public class PHPView extends ConstrutorBasico {
 		arquivo.addLinha("}", 3);
 		arquivo.addLinha("$l = $d->getLista();", 3);
 		arquivo.addLinha("$s = '<select name=\"cmb" + classe.getNome()
-				+ "\" id=\"cmb" + classe.getNome() + "\">';", 3);
+				+ "\" id=\"cmb" + classe.getNome() + "\" class=\"maxsize\">';", 3);
 		arquivo.addLinha("for($i = 0; $i<$l->getSize();$i++)", 3);
 		arquivo.addLinha("{", 3);
 		arquivo.addLinha("$t = $l->get($i);", 4);
@@ -139,7 +143,7 @@ public class PHPView extends ConstrutorBasico {
 						+ this.capitalize(classe.getChavePrimaria().getNome())
 						+ "().'\">';", 4);
 		for (Variavel v : classe.getVariaveis()) {
-			arquivo.addLinha("if($show_" + v.getNome() + ")", 4);
+			arquivo.addLinha("if($this->show_" + v.getNome() + ")", 4);
 			arquivo.addLinha("{", 4);
 			if (classe.getVariaveis().indexOf(v) > 0) {
 				arquivo.addLinha(
@@ -254,7 +258,7 @@ public class PHPView extends ConstrutorBasico {
 								if(v.isTemChaveEstrangeira())
 								{
 									arquivo.addLinha("$view"+v.getNome()+" = new VW_"+v.getChaveEstrangeira().getClasse().getNome()+"();",7);
-									arquivo.addLinha("$view"+v.getNome()+"->getCmb();",7);
+									arquivo.addLinha("$s .= $view"+v.getNome()+"->getCmb();",7);
 									//FIXME Colocar o tipo de view que será utilizado
 								}
 								else
@@ -266,7 +270,7 @@ public class PHPView extends ConstrutorBasico {
 						arquivo.addLinha("}",5);
 						arquivo.proximaLinha();
 					}
-				arquivo.addLinha("$s .= '<tr><td colspan=\"2\"><input type=\"submit\" name=\"Salvar\" /></td></tr>';");
+				arquivo.addLinha("$s .= '<tr><td colspan=\"2\"><input type=\"submit\" name=\"Salvar\" class=\"maxsize\" /></td></tr>';",5);
 				arquivo.addLinha("$s .= '</table>';",4);
 			arquivo.addLinha("$s .= '</form>';",3);
 		arquivo.addLinha("$this->clearShow();", 3);
@@ -313,14 +317,14 @@ public class PHPView extends ConstrutorBasico {
 			tipo ="text";
 			break;
 		case Tipo.TEXTO:
-			return "<textarea></textarea>";
+			return "<textarea name=\""+campo.getNome()+"\"></textarea>";
 		}
 		
 		if(campo.isRequerido())
 		{
 			requerido = "required";
 		}
-		resultado = "<input type\""+tipo+"\" name=\""+campo.getNome()+"\" "+requerido+"></input>";
+		resultado = "<input type\""+tipo+"\" name=\""+campo.getNome()+"\" "+requerido+" class=\"maxsize\"></input>";
 		return resultado;
 	}
 
