@@ -24,6 +24,28 @@ public class Variavel {
 	private boolean unico;
 	private boolean indexado;
 	private boolean temChaveEstrangeira;
+	
+	private Variavel()
+	{
+		
+	}
+	
+	public static Variavel clone(Variavel v)
+	{
+		Variavel r = new Variavel();
+		r.nome = v.nome;
+		r.tipo = v.tipo;
+		r.tamanho = v.tamanho;
+		r.requerido = v.requerido;
+		r.chaveEstrangeira = v.chaveEstrangeira;
+		r.descricao = v.descricao;
+		r.modificador = v.modificador;
+		r.estatico = v.estatico;
+		r.unico = v.unico;
+		r.indexado = v.indexado;
+		r.temChaveEstrangeira = v.temChaveEstrangeira;
+		return r;
+	}
 
 	/**
 	 * @param nome

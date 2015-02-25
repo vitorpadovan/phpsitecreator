@@ -91,6 +91,7 @@ public class MySqlScript {
 		List<ChaveEstrangeira> chaves = new ArrayList<ChaveEstrangeira>();
 		arquivo.addLinha("create view view_"+c.getNome()+" as ");
 		arquivo.addLinha("select ");
+		arquivo.addLinha(c.getNome()+"."+c.getChavePrimaria().getNome()+" as "+c.getNome()+"_"+c.getChavePrimaria().getNome()+",");
 		for(Variavel v: c.getVariaveis())
 		{
 			arquivo.addLinha(c.getNome()+"."+v.getNome() + " as "+c.getNome()+"_"+v.getNome() );
@@ -108,35 +109,17 @@ public class MySqlScript {
 		for(Classe c2 : classes)
 		{
 			List<Variavel> vars = c2.getVariaveis();
-			for(Variavel v : vars)
+			
+			Variavel v = c2.getChavePrimaria();
+			arquivo.addLinha(c2.getNome()+"."+v.getNome() + " as "+c2.getNome()+"_"+v.getNome()+",");
+			
+			for(Variavel  v2 : vars)
 			{
-				arquivo.addLinha(c2.getNome()+"."+v.getNome() + " as "+c2.getNome()+"_"+v.getNome());
-				
-				//arquivo.addFrase( "/* C:"+classes.indexOf(c2)+"*/");
-				//arquivo.addFrase( "/* V:"+vars.indexOf(v)+"*/");
-				//arquivo.proximaLinha();
-				//arquivo.addFrase( "/* TC:"+(classes.size()-1)+"*/");
-				//arquivo.addFrase( "/* TV:"+vars.size()+"*/");
-				//arquivo.proximaLinha();
-				
-				
-				
-				/**
-				 * Os testes estão aqui
-				 */
-				//boolean teste;
-				//teste = vars.indexOf(v)!=vars.size()-1;
-				//arquivo.addFrase( "/* TV:"+teste+"*/");
-				
-				//teste = classes.indexOf(c2)!=(classes.size()-1);
-				//arquivo.addFrase( "/* TC:"+teste+" "+classes.indexOf(c2)+"!="+(classes.size()-1)+" */");
-				
-				if(vars.indexOf(v)!=vars.size()-1 || classes.indexOf(c2)!=classes.size()-1)
+				arquivo.addLinha(c2.getNome()+"."+v2.getNome() + " as "+c2.getNome()+"_"+v2.getNome());
+				if(vars.indexOf(v2)!=vars.size()-1 || classes.indexOf(c2)!=classes.size()-1)
 				{
 					arquivo.addFrase(",");
 				}
-				
-				//arquivo.proximaLinha();arquivo.proximaLinha();arquivo.proximaLinha();
 			}
 		}
 		arquivo.addLinha("from "+c.getNome());

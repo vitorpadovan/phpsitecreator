@@ -18,6 +18,7 @@ import com.br.PHPSiteCreator.model.Relacionamento;
 import com.br.PHPSiteCreator.model.SiteInfo;
 import com.br.PHPSiteCreator.model.Tipo;
 import com.br.PHPSiteCreator.model.Variavel;
+import com.br.PHPSiteCreator.model.View;
 import com.br.PHPSiteCreator.util.Debug;
 
 /**
@@ -78,6 +79,14 @@ public class Main {
 			new PHPDatabase(classe);
 			new PHPView(classe);
 			script.addClasse(classe);
+			if(classe.isChaveEstrangeira())
+			{
+				View v = new View(classe);
+				Classe r = v.getResultado();
+				new PHPDatabase(r);
+				new PHPView(r);
+				new PHPModel(r);
+			}
 		}
 		script.executar();
 	}

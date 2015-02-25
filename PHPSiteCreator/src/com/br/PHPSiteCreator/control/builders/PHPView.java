@@ -210,7 +210,7 @@ public class PHPView extends ConstrutorBasico {
 			arquivo.addLinha("$l = $d->getLista();",3);
 			arquivo.addLinha("if(is_null($l))",3);
 			arquivo.addLinha("{return;}",3);
-			arquivo.addLinha("$s = '<table>';",3);
+			arquivo.addLinha("$s = '<table border=\"1\">';",3);
 				arquivo.addLinha("$s .= '<tr>';",4);
 				for(Variavel v : classe.getVariaveis())
 				{
