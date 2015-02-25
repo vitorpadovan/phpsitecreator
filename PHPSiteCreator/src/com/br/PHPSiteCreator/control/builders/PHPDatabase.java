@@ -75,7 +75,7 @@ public class PHPDatabase extends ConstrutorBasico {
 	 */
 	@Override
 	public void corpo() {
-		this.extrairDB();
+		this.extrairItem();
 		this.salvarDB();
 		this.excluirDB();
 		this.atualizarDB();
@@ -95,11 +95,14 @@ public class PHPDatabase extends ConstrutorBasico {
 			arquivo.addLinha("{",3);
 				arquivo.addLinha("$t = $l->get($i);",4);
 				arquivo.addLinha("$sql = new DML_SQL(\""+classe.getNome()+"\");",4);
+				arquivo.addLinha("$sql->addInsert(\""+classe.getChavePrimaria().getNome()+"\",$t->get"+capitalize(classe.getChavePrimaria().getNome())+"());",4);
 				for(Variavel v : classe.getVariaveis())
 				{
-					arquivo.addLinha("$sql->addInsert(\""+v.getNome()+"\",$t->getCod()"+tratarTipo(v)+");",4);
+					arquivo.addLinha("$sql->addInsert(\""+v.getNome()+"\",$t->get"+capitalize(v.getNome())+"());",4);
 				}
+			arquivo.addLinha("$r .= $sql->getInsert().\"<br />\";",4);
 			arquivo.addLinha("}",3);
+			arquivo.addLinha("return $r;",3);
 		this.finalizarFuncao();
 	}
 	
@@ -195,11 +198,12 @@ public class PHPDatabase extends ConstrutorBasico {
 
 	}
 	
-	private void extrairDB()
+	private void extrairItem()
 	{
 		this.addParametroFuncao("obj");
 		this.iniciarFuncao("extrair_item");
 			arquivo.addLinha("$resultado = new "+classe.getNome()+";",3);
+				arquivo.addLinha("$resultado->set"+capitalize(classe.getChavePrimaria().getNome())+"($obj->"+classe.getChavePrimaria().getNome()+");",4);
 			for(Variavel v : classe.getVariaveis())
 			{
 				arquivo.addLinha("$resultado->set"+this.capitalize(v.getNome())+"($obj->"+v.getNome()+");",4);

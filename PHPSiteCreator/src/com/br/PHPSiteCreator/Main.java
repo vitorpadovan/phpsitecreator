@@ -242,6 +242,8 @@ public class Main {
 				true, null, "Código do patrimonio");
 		Variavel empresa = new Variavel("empresa", Tipo.VARCHAR, 100, true,
 				null, "Empresa dona do patrimônio");
+		Variavel patrimonio = new Variavel("patrimonio", Tipo.VARCHAR, 100, true,
+				null, "Empresa dona do patrimônio");
 		Variavel responsavel = new Variavel("responsavel", Tipo.INT, 100, true,
 				null, "Responsável pelo patrimonio");
 		Variavel localizacao = new Variavel("localizacao", Tipo.INT, 100, true,
@@ -280,6 +282,7 @@ public class Main {
 
 		r.addChave(cod_patrimonio);
 		r.addVariavel(empresa);
+		r.addVariavel(patrimonio);
 		r.addVariavel(responsavel);
 		r.addVariavel(localizacao);
 		r.addVariavel(tipo);
@@ -333,7 +336,7 @@ public class Main {
 		r.addVariavel(fim);
 		r.addVariavel(chamado);
 		r.addVariavel(conclusao);
-		r.addChave(patrimonio);
+		r.addVariavel(patrimonio);
 		r.addVariavel(servico);
 
 		return r;
