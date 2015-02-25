@@ -83,6 +83,7 @@ public class PHPDatabase extends ConstrutorBasico {
 		this.lista();
 		this.pesquisasDB();
 		this.getBackup();
+		this.getView();
 	}
 	
 	private void getBackup()
@@ -173,6 +174,18 @@ public class PHPDatabase extends ConstrutorBasico {
 		arquivo.addLinha("$query = \"select * from "+classe.getNome()+"\";",3);
 		arquivo.addLinha("return $this->pesquisa($query);",3);
 		this.finalizarFuncao();
+	}
+
+	
+	private void getView()
+	{
+		if(classe.isChaveEstrangeira())
+		{
+			iniciarFuncao("getView");
+			arquivo.addLinha("$query = \"select * from view_"+classe.getNome()+"\";",3);
+			arquivo.addLinha("return $this->pesquisa($query);",3);
+			finalizarFuncao();
+		}	
 	}
 	
 	private void pesquisaPorId()

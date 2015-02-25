@@ -26,8 +26,6 @@ public class MySqlScript {
 	public MySqlScript() {
 		this.classes = new ArrayList<Classe>();
 		this.arquivo = new Arquivo("MySql", "docs", ".sql");
-		//this.iniciar();
-		//this.finalizar();
 	}
 	
 	public void addClasse(Classe classe)
