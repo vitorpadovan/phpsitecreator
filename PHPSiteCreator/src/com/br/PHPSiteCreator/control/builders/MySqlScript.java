@@ -69,6 +69,15 @@ public class MySqlScript {
 					arquivo.addFrase(",");
 					arquivo.addFrase("index("+v.getNome()+")");
 				}
+				if(v.isTemChaveEstrangeira())
+				{
+					arquivo.addFrase(",");
+					ChaveEstrangeira ch = v.getChaveEstrangeira();
+					arquivo.addLinha("foreign key("+v.getNome()+") references "+ch.getClasse().getNome()+"("+ch.getClasse().getChavePrimaria().getNome()+")",1);
+				}
+				/*
+				 * 
+				 */
 				if(c.getVariaveis().indexOf(v)<c.getVariaveis().size()-1)
 				{
 					arquivo.addFrase(",");

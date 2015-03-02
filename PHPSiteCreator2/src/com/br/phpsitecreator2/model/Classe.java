@@ -7,4 +7,11 @@ package com.br.phpsitecreator2.model;
  */
 public class Classe {
 
+	private String nome;
+	private boolean referencias = false;
+	
+	public Classe(String nome)
+	{
+		this.nome = nome;
+	}
 }

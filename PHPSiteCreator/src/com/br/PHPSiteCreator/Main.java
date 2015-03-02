@@ -102,10 +102,10 @@ public class Main {
 		Variavel sexo = new Variavel("sexo", Tipo.VARCHAR, 1, true, null,
 				"Sexo da pessoa");
 		Variavel data_nascimento = new Variavel("data_nascimento", Tipo.DATE,
-				0, false, null, "Data de nascimento da pessoa");
+				10, false, null, "Data de nascimento da pessoa");
 		Variavel email = new Variavel("email", Tipo.VARCHAR, 100, true, null,
 				"Email da pessoa", true, true);
-		Variavel cpf = new Variavel("cpf", Tipo.VARCHAR, 100, false, null,
+		Variavel cpf = new Variavel("cpf", Tipo.VARCHAR, 14, false, null,
 				"CPF da pessoa", true, true);
 		Variavel curriculo_lattes = new Variavel("curriculo_lattes",
 				Tipo.VARCHAR, 100, false, null, "Curriculo Lattes da pessoa",
@@ -313,7 +313,7 @@ public class Main {
 
 		Variavel cod_chamado = new Variavel("cod_chamado", Tipo.INT, 100, true,
 				null, "Código do chamado");
-		Variavel pessoa = new Variavel("pessoa", Tipo.VARCHAR, 100, true, null,
+		Variavel pessoa = new Variavel("pessoa", Tipo.INT, 100, true, null,
 				"Código do chamado");
 		Variavel inicio = new Variavel("inicio", Tipo.DATETIME, 100, true,
 				null, "Código do chamado");
