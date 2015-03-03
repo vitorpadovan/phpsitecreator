@@ -54,6 +54,7 @@ public abstract class ConstrutorBasico {
 
 	protected void abrirArquivo() {
 		arquivo.addLinha("<?php");
+		arquivo.addLinha("Debug::m(\"Classe "+this.iniciaisConstrutor+this.classe.getNome()+" carregada\");");
 		arquivo.addLinha("class "+this.iniciaisConstrutor+this.classe.getNome(),1);
 		arquivo.addLinha("{",1);
 		Debug.m("Abrindo um arquivo");

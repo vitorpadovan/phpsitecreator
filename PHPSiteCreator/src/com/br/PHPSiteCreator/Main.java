@@ -77,14 +77,14 @@ public class Main {
 			new PHPModel(classe);
 			new PHPControl(classe);
 			new PHPDatabase(classe);
-			new PHPView(classe);
+			//new PHPView(classe);
 			script.addClasse(classe);
 			if(classe.isChaveEstrangeira())
 			{
 				View v = new View(classe);
 				Classe r = v.getResultado();
 				new PHPDatabase(r);
-				new PHPView(r);
+				//new PHPView(r);
 				new PHPModel(r);
 			}
 		}
@@ -323,7 +323,7 @@ public class Main {
 				"Código do chamado");
 		Variavel conclusao = new Variavel("conclusao", Tipo.TEXTO, 100, false,
 				null, "Código do chamado");
-		Variavel patrimonio = new Variavel("patrimonio", Tipo.INT, 100, true,
+		Variavel patrimonio = new Variavel("patrimonio", Tipo.INT, 100, false,
 				null, "Código do chamado");
 		Variavel servico = new Variavel("servico", Tipo.INT, 100, true, null,
 				"Código do chamado");

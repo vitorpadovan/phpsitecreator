@@ -125,7 +125,8 @@ public class PHPView extends ConstrutorBasico {
 	}
 
 	public void getCmb() {
-		this.addParametroFuncao("cmb_name");
+		this.addParametroFuncao("cmb_name = null");
+		this.addParametroFuncao("requerido = false");
 		this.iniciarFuncao("getCmb");
 		arquivo.addLinha("if(is_null($cmb_name))", 3);
 		arquivo.addLinha("{", 3);
@@ -140,6 +141,10 @@ public class PHPView extends ConstrutorBasico {
 		arquivo.addLinha("}", 3);
 		arquivo.addLinha("$l = $d->getLista();", 3);
 		arquivo.addLinha("$s = '<select name=\"'.$cmb_name.'\" id=\"cmb" + classe.getNome() + "\" class=\"maxsize\">';", 3);
+		arquivo.addLinha("if(!$requerido)",3);
+		arquivo.addLinha("{",3);
+			arquivo.addLinha("$s .= '<option value=\"-1\"></option>';",4);
+		arquivo.addLinha("}",3);
 		arquivo.addLinha("for($i = 0; $i<$l->getSize();$i++)", 3);
 		arquivo.addLinha("{", 3);
 		arquivo.addLinha("$t = $l->get($i);", 4);
@@ -263,7 +268,12 @@ public class PHPView extends ConstrutorBasico {
 								if(v.isTemChaveEstrangeira())
 								{
 									arquivo.addLinha("$view"+v.getNome()+" = new VW_"+v.getChaveEstrangeira().getClasse().getNome()+"();",7);
-									arquivo.addLinha("$s .= $view"+v.getNome()+"->getCmb(\""+v.getNome()+"\");",7);
+									String req = "false";
+									if(v.isRequerido())
+									{
+										req = "true";
+									}
+									arquivo.addLinha("$s .= $view"+v.getNome()+"->getCmb(\""+v.getNome()+"\","+req+");",7);
 									//FIXME Colocar o tipo de view que será utilizado
 								}
 								else
