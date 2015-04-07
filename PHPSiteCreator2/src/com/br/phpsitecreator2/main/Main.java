@@ -7,6 +7,7 @@ import com.br.phpsitecreator2.model.Classe;
 
 public class Main {
 	
+	//TODO aprender a usar o java.util.Map e onde colocar
 	private List<Classe> classes;
 
 	public static void main(String[] args) {

@@ -73,6 +73,11 @@ public class Variavel {
 	public static final int FRASE = 10;
 
 	/**
+	 * Representa uma frase com tamanho. Ex. de variavel MySql "VARCHAR", o mesmo que Variavel.FRASE;
+	 */
+	public static final int STRING = 10;
+
+	/**
 	 * Representa verdadeiro ou falso Ex. de variavel MySql "bool"
 	 */
 	public static final int BOOLEANA = 11;
@@ -86,6 +91,11 @@ public class Variavel {
 	 * ****************************************************************************************************
 	 * Variáveis
 	 */
+
+	/**
+	 * Mostra se é uma chave primária
+	 */
+	private boolean chave;
 
 	/**
 	 * Nome da variavel
@@ -124,6 +134,26 @@ public class Variavel {
 	 */
 	private boolean visibilidadeTbl = false;
 
+	/**
+	 * Mostra quando a variavel é requerida
+	 */
+	private boolean requerido = false;
+
+	/**
+	 * Mostra quando a variavel possui o atributo auto_increment no banco de dados
+	 */
+	private boolean autoIncrement = false;
+
+	/**
+	 * Chave estrangeira que a variavel está relacionada
+	 */
+	private Variavel chaveEstrangeira = null;
+
+	/**
+	 * Contem a descrição da variavel
+	 */
+	private String descricao = null;
+
 	/*
 	 * ****************************************************************************************************
 	 * ****************************************************************************************************
@@ -133,6 +163,50 @@ public class Variavel {
 	 * ****************************************************************************************************
 	 * Getters and Setters
 	 */
+	
+	/**
+	 * Coloca a descrição da variavel, também será usada na hora de montar o banco de dados
+	 * @param descricao
+	 * Descrição da variavel
+	 */
+	public void setDescricao(String descricao)
+	{
+		this.descricao = descricao;
+	}
+	
+	/**
+	 * Retorna a descrição da variavel
+	 * @return
+	 * Descrição da variavel
+	 */
+	public String getDescricao()
+	{
+		return this.descricao;
+	}
+	
+	/**
+	 * Adiciona uma classe cujo qual será a referencia desta chage estrangeira
+	 * @param chaveEstrangeira
+	 * Classe á qual a chave está relacionada
+	 */
+	public void addChaveEstrangeira(Variavel chaveEstrangeira)
+	{
+		if(chaveEstrangeira != null)
+		{
+			this.chaveEstrangeira = chaveEstrangeira;
+		}
+	}
+	
+	/**
+	 * Retorna a classe á ser referenciada pela classe estrangeira
+	 * @return
+	 * Retorna uma classe, caso contrário retorna NULL
+	 */
+	public Variavel getChaveEstrangeira()
+	{
+		return this.chaveEstrangeira;
+	}
+	
 
 	/**
 	 * @return Nome da variável
@@ -246,6 +320,63 @@ public class Variavel {
 		this.visibilidadeTbl = visibilidadeTbl;
 	}
 
+	/**
+	 * @return True se for chave primária, false se não for chave primária
+	 */
+	public boolean isChave() {
+		return chave;
+	}
+
+	/**
+	 * @param chave
+	 *            True se for chave primária, false se não for chave primária
+	 */
+	public void setChave(boolean chave) {
+		this.chave = chave;
+		if(chave)
+		{	
+			this.setRequerido(chave);
+			this.setAutoIncrement(chave);
+		}
+	}
+
+	/**
+	 * @return the requerido
+	 */
+	public boolean isRequerido() {
+		return requerido;
+	}
+
+	/**
+	 * @param requerido the requerido to set
+	 */
+	public void setRequerido(boolean requerido) {
+		this.requerido = requerido;
+	}
+
+	/**
+	 * @return the autoIncrement
+	 */
+	public boolean isAutoIncrement() {
+		return autoIncrement;
+	}
+
+	/**
+	 * @param autoIncrement só pode ser TRUE quando a tipo da Variavel é Variavel.INTEIRO do contrário ela sempre será FALSE
+	 */
+	public void setAutoIncrement(boolean autoIncrement) {
+		if(this.tipo == Variavel.INTEIRO)
+		{
+			this.autoIncrement = autoIncrement;
+		}
+		else
+		{
+			this.autoIncrement = false;
+		}
+	}
+	
+	
+
 	/*
 	 * ****************************************************************************************************
 	 * ****************************************************************************************************
@@ -264,7 +395,7 @@ public class Variavel {
 	 * @param tipo
 	 *            Tipo da Variavel
 	 */
-	public Variavel(String nome, int tipo) {
+	public Variavel(String nome, int tipo,String descricao) {
 		setNome(nome);
 		setTipo(tipo);
 	}
@@ -278,9 +409,8 @@ public class Variavel {
 	 * ****************************************************************************************************
 	 * Metodos variados
 	 */
-	
-	public static int validarTipo(int tipo)
-	{
+
+	public static int validarTipo(int tipo) {
 		switch (tipo) {
 		case Variavel.DATA:
 			break;
