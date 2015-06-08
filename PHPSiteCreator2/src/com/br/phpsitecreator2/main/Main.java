@@ -3,6 +3,7 @@ package com.br.phpsitecreator2.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.br.phpsitecreator2.control.PHPModelGerador;
 import com.br.phpsitecreator2.model.Classe;
 
 public class Main {
@@ -34,7 +35,10 @@ public class Main {
 	
 	private void processar()
 	{
-		
+		for(Classe c : classes)
+		{
+			new PHPModelGerador(c);
+		}
 	}
 
 }

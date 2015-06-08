@@ -27,7 +27,7 @@ public class Classe {
 		this.chavesEstrangeiras = new ArrayList<Variavel>();
 		Variavel v = new Variavel("cod_"+nome.toLowerCase(),Variavel.INTEIRO,"Chave primária da class "+nome);
 		v.setChave();
-	}
+		this.addVariavel(v);	}
 	
 	/**
 	 * Adiciona uma variavel á classe.
@@ -71,4 +71,30 @@ public class Classe {
 		Debug.d("Retornando as chaves de "+this.nome);
 		return this.chaves;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public List<Variavel> getChavesEstrangeiras() {
+		return chavesEstrangeiras;
+	}
+
+	public void setChavesEstrangeiras(List<Variavel> chavesEstrangeiras) {
+		this.chavesEstrangeiras = chavesEstrangeiras;
+	}
+
+	public void setVariaveis(List<Variavel> variaveis) {
+		this.variaveis = variaveis;
+	}
+
+	public void setChaves(List<Variavel> chaves) {
+		this.chaves = chaves;
+	}
+	
+	
 }

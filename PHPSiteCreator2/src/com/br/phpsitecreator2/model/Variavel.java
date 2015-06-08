@@ -1,5 +1,7 @@
 package com.br.phpsitecreator2.model;
 
+import java.text.Normalizer;
+
 /**
  * 
  * @author vitor.padovan89@gmail.com Responsável por representar uma variavel e
@@ -228,6 +230,33 @@ public class Variavel {
 	 */
 	public String getNome() {
 		return nome;
+	}
+	
+
+	public String getNomeProgramavel()
+	{
+		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+		resultado = resultado.replaceAll(" ", "_");
+		resultado = resultado.toLowerCase();
+		return resultado;
+	}
+	
+	public String getNomeVariavelProgramavel()
+	{
+		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+		resultado = resultado.replaceAll(" ", "_");
+		resultado = resultado.toLowerCase();
+		resultado = "$"+resultado;
+		return resultado;
+	}
+	
+	public String getNomePropriedade()
+	{
+		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+		resultado = resultado.replaceAll(" ", "_");
+		resultado = resultado.toLowerCase();
+		resultado = "$this->"+resultado;
+		return resultado;
 	}
 
 	/**

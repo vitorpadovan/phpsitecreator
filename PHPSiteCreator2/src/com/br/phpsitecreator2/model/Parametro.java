@@ -1,5 +1,7 @@
 package com.br.phpsitecreator2.model;
 
+import java.text.Normalizer;
+
 public class Parametro {
 
 	private String nome;
@@ -33,6 +35,13 @@ public class Parametro {
 	 */
 	public String getNome() {
 		return nome;
+	}
+	public String getNomeVariavel() {
+		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+		resultado = resultado.replaceAll(" ", "_");
+		resultado = resultado.toLowerCase();
+		resultado = "$"+resultado;
+		return resultado;
 	}
 
 	/**
