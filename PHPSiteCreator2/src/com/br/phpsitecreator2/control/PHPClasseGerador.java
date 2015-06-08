@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.br.phpsitecreator2.model.Classe;
 import com.br.phpsitecreator2.model.Parametro;
+import com.br.phpsitecreator2.model.Variavel;
 
 public class PHPClasseGerador {
 
@@ -37,14 +38,19 @@ public class PHPClasseGerador {
 
 	}
 
-	protected void gerarFuncao(Parametro parametro) {
+	protected void gerarFuncao(String prefixo, String nome,Parametro parametro) {
+		List<Parametro> p = new ArrayList<Parametro>();
+		p.add(parametro);
+		gerarFuncao(p);
+	}
+	
+	protected void gerarFuncao(String prefixo, Variavel variavel,Parametro parametro) {
 		List<Parametro> p = new ArrayList<Parametro>();
 		p.add(parametro);
 		gerarFuncao(p);
 	}
 
 	protected void gerarFuncao() {
-
 	}
 
 }

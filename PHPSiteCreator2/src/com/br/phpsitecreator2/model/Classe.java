@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.br.phpsitecreator2.util.Debug;
+
 /**
  * 
  * @author vitor.padovan89@gmail.com
@@ -18,12 +20,13 @@ public class Classe {
 	
 	public Classe(String nome)
 	{
+		Debug.d("Criando a classe "+nome);
 		this.nome = nome;
 		this.variaveis = new ArrayList<Variavel>();
 		this.chaves = new ArrayList<Variavel>();
 		this.chavesEstrangeiras = new ArrayList<Variavel>();
 		Variavel v = new Variavel("cod_"+nome.toLowerCase(),Variavel.INTEIRO,"Chave primária da class "+nome);
-		v.setChave(true);
+		v.setChave();
 	}
 	
 	/**
@@ -35,6 +38,7 @@ public class Classe {
 	 */
 	public void addVariavel(Variavel variavel)
 	{
+		Debug.d("Adicionando variavel "+variavel.getNome());
 		this.variaveis.add(variavel);
 		if(variavel.isChave())
 		{
@@ -53,6 +57,7 @@ public class Classe {
 	 */
 	public List<Variavel> getVariaveis()
 	{
+		Debug.d("Retornando as variaveis da classe "+this.nome);
 		return this.variaveis;
 	}
 	
@@ -63,6 +68,7 @@ public class Classe {
 	 */
 	public List<Variavel> getChaves()
 	{
+		Debug.d("Retornando as chaves de "+this.nome);
 		return this.chaves;
 	}
 }

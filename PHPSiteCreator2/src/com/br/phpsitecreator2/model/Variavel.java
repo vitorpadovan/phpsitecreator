@@ -58,7 +58,7 @@ public class Variavel {
 	public static final int TELEFONE = 7;
 
 	/**
-	 * Representa documento
+	 * Representa documento de uma pessoa
 	 */
 	public static final int DOCUMENTO = 8;
 
@@ -81,6 +81,16 @@ public class Variavel {
 	 * Representa verdadeiro ou falso Ex. de variavel MySql "bool"
 	 */
 	public static final int BOOLEANA = 11;
+
+	/**
+	 * Representa um arquivo de computador
+	 */
+	public static final int ARQUIVO = 12;
+
+	/**
+	 * Representa um link de um site
+	 */
+	public static final int LINK = 12;
 
 	/*
 	 * ****************************************************************************************************
@@ -140,6 +150,11 @@ public class Variavel {
 	private boolean requerido = false;
 
 	/**
+	 * Mostra quando a variavel deve ser única
+	 */
+	private boolean unico = false;
+
+	/**
 	 * Mostra quando a variavel possui o atributo auto_increment no banco de dados
 	 */
 	private boolean autoIncrement = false;
@@ -147,7 +162,7 @@ public class Variavel {
 	/**
 	 * Chave estrangeira que a variavel está relacionada
 	 */
-	private Variavel chaveEstrangeira = null;
+	private Classe chaveEstrangeira = null;
 
 	/**
 	 * Contem a descrição da variavel
@@ -189,11 +204,11 @@ public class Variavel {
 	 * @param chaveEstrangeira
 	 * Classe á qual a chave está relacionada
 	 */
-	public void addChaveEstrangeira(Variavel chaveEstrangeira)
+	public void addChaveEstrangeira(Classe classe)
 	{
 		if(chaveEstrangeira != null)
 		{
-			this.chaveEstrangeira = chaveEstrangeira;
+			this.chaveEstrangeira = classe;
 		}
 	}
 	
@@ -202,7 +217,7 @@ public class Variavel {
 	 * @return
 	 * Retorna uma classe, caso contrário retorna NULL
 	 */
-	public Variavel getChaveEstrangeira()
+	public Classe getChaveEstrangeira()
 	{
 		return this.chaveEstrangeira;
 	}
@@ -221,6 +236,24 @@ public class Variavel {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	
+
+	/**
+	 * Mostra quando a variavel é única
+	 * @return
+	 */
+	public boolean isUnico() {
+		return unico;
+	}
+
+	/**
+	 * true deixa a variável unica
+	 * @param unico
+	 */
+	public void setUnico(boolean unico) {
+		this.unico = unico;
 	}
 
 	/**
@@ -339,6 +372,11 @@ public class Variavel {
 			this.setAutoIncrement(chave);
 		}
 	}
+	
+	public void setChave()
+	{
+		this.setChave(true);
+	}
 
 	/**
 	 * @return the requerido
@@ -411,32 +449,11 @@ public class Variavel {
 	 */
 
 	public static int validarTipo(int tipo) {
-		switch (tipo) {
-		case Variavel.DATA:
-			break;
-		case Variavel.DATA_HORARIO:
-			break;
-		case Variavel.DINHEIRO:
-			break;
-		case Variavel.DOCUMENTO:
-			break;
-		case Variavel.EMAIL:
-			break;
-		case Variavel.FLOAT:
-			break;
-		case Variavel.FRASE:
-			break;
-		case Variavel.INTEIRO:
-			break;
-		case Variavel.SEXO:
-			break;
-		case Variavel.TELEFONE:
-			break;
-		case Variavel.TEXTO:
-			break;
-		default:
-			tipo = Variavel.FRASE;
+		if(!(tipo>=0 && tipo<=12))
+		{
+			return Variavel.STRING;
 		}
 		return tipo;
+		
 	}
 }
