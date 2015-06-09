@@ -87,7 +87,7 @@ public class Arquivo {
 	 */
 	public boolean gravar()
 	{
-		Debug.d("Salvando "+this.frase+" no arquivo "+this.arquivo.getAbsolutePath());
+		//Debug.d("Salvando "+this.frase+" no arquivo "+this.arquivo.getAbsolutePath());
 		Writer writer = null;
 		
 		//Debug.mensagem(this.pathName);
@@ -95,7 +95,7 @@ public class Arquivo {
 		boolean retorno;
 		if(!pasta.exists())
 		{
-			Debug.d("Pasta não existe "+pasta.getAbsolutePath());
+			Debug.e("Pasta não existe "+pasta.getAbsolutePath());
 			pasta.mkdirs();
 		}
 		else

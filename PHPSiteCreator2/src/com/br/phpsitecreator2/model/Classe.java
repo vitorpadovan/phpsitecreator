@@ -38,7 +38,7 @@ public class Classe {
 	 */
 	public void addVariavel(Variavel variavel)
 	{
-		Debug.d("Adicionando variavel "+variavel.getNome());
+		Debug.d("Adicionando variavel "+variavel.getNome()+" do tipo "+variavel.getTipo());
 		this.variaveis.add(variavel);
 		if(variavel.isChave())
 		{

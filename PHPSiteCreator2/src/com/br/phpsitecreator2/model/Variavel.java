@@ -2,6 +2,8 @@ package com.br.phpsitecreator2.model;
 
 import java.text.Normalizer;
 
+import com.br.phpsitecreator2.util.Debug;
+
 /**
  * 
  * @author vitor.padovan89@gmail.com Responsável por representar uma variavel e
@@ -75,24 +77,25 @@ public class Variavel {
 	public static final int FRASE = 10;
 
 	/**
-	 * Representa uma frase com tamanho. Ex. de variavel MySql "VARCHAR", o mesmo que Variavel.FRASE;
+	 * Representa uma frase com tamanho. Ex. de variavel MySql "VARCHAR", o
+	 * mesmo que Variavel.FRASE;
 	 */
-	public static final int STRING = 10;
+	public static final int STRING = 11;
 
 	/**
 	 * Representa verdadeiro ou falso Ex. de variavel MySql "bool"
 	 */
-	public static final int BOOLEANA = 11;
+	public static final int BOOLEANA = 12;
 
 	/**
 	 * Representa um arquivo de computador
 	 */
-	public static final int ARQUIVO = 12;
+	public static final int ARQUIVO = 13;
 
 	/**
 	 * Representa um link de um site
 	 */
-	public static final int LINK = 12;
+	public static final int LINK = 14;
 
 	/*
 	 * ****************************************************************************************************
@@ -107,12 +110,17 @@ public class Variavel {
 	/**
 	 * Mostra se é uma chave primária
 	 */
-	private boolean chave;
+	private boolean chave = false;
+
+	/**
+	 * Mostra se é um indice
+	 */
+	private boolean indice = false;
 
 	/**
 	 * Nome da variavel
 	 */
-	private String nome;
+	private String nome = null;
 
 	/**
 	 * Tipo da variavel;
@@ -157,7 +165,8 @@ public class Variavel {
 	private boolean unico = false;
 
 	/**
-	 * Mostra quando a variavel possui o atributo auto_increment no banco de dados
+	 * Mostra quando a variavel possui o atributo auto_increment no banco de
+	 * dados
 	 */
 	private boolean autoIncrement = false;
 
@@ -180,50 +189,58 @@ public class Variavel {
 	 * ****************************************************************************************************
 	 * Getters and Setters
 	 */
-	
+
 	/**
-	 * Coloca a descrição da variavel, também será usada na hora de montar o banco de dados
+	 * Coloca a descrição da variavel, também será usada na hora de montar o
+	 * banco de dados
+	 * 
 	 * @param descricao
-	 * Descrição da variavel
+	 *            Descrição da variavel
 	 */
-	public void setDescricao(String descricao)
-	{
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	/**
 	 * Retorna a descrição da variavel
-	 * @return
-	 * Descrição da variavel
+	 * 
+	 * @return Descrição da variavel
 	 */
-	public String getDescricao()
-	{
+	public String getDescricao() {
 		return this.descricao;
 	}
-	
+
 	/**
 	 * Adiciona uma classe cujo qual será a referencia desta chage estrangeira
+	 * 
 	 * @param chaveEstrangeira
-	 * Classe á qual a chave está relacionada
+	 *            Classe á qual a chave está relacionada
 	 */
-	public void addChaveEstrangeira(Classe classe)
-	{
-		if(chaveEstrangeira != null)
+	public void addChaveEstrangeira(Classe classe) {
+		if (chaveEstrangeira != null) {
+			if(this.chaveEstrangeira.getChaves().get(0).getTipo() == this.tipo)
+			{
+				this.chaveEstrangeira = classe;
+			}
+			else
+			{
+				Debug.e("Chaves não são compatíveis");
+			}
+		}
+		else
 		{
-			this.chaveEstrangeira = classe;
+			Debug.e("Chave estrangeira é nula");
 		}
 	}
-	
+
 	/**
 	 * Retorna a classe á ser referenciada pela classe estrangeira
-	 * @return
-	 * Retorna uma classe, caso contrário retorna NULL
+	 * 
+	 * @return Retorna uma classe, caso contrário retorna NULL
 	 */
-	public Classe getChaveEstrangeira()
-	{
+	public Classe getChaveEstrangeira() {
 		return this.chaveEstrangeira;
 	}
-	
 
 	/**
 	 * @return Nome da variável
@@ -231,31 +248,30 @@ public class Variavel {
 	public String getNome() {
 		return nome;
 	}
-	
 
-	public String getNomeProgramavel()
-	{
-		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+	public String getNomeProgramavel() {
+		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD)
+				.replaceAll("[^\\p{ASCII}]", "");
 		resultado = resultado.replaceAll(" ", "_");
 		resultado = resultado.toLowerCase();
 		return resultado;
 	}
-	
-	public String getNomeVariavelProgramavel()
-	{
-		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+
+	public String getNomeVariavelProgramavel() {
+		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD)
+				.replaceAll("[^\\p{ASCII}]", "");
 		resultado = resultado.replaceAll(" ", "_");
 		resultado = resultado.toLowerCase();
-		resultado = "$"+resultado;
+		resultado = "$" + resultado;
 		return resultado;
 	}
-	
-	public String getNomePropriedade()
-	{
-		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+
+	public String getNomePropriedade() {
+		String resultado = Normalizer.normalize(this.nome, Normalizer.Form.NFD)
+				.replaceAll("[^\\p{ASCII}]", "");
 		resultado = resultado.replaceAll(" ", "_");
 		resultado = resultado.toLowerCase();
-		resultado = "$this->"+resultado;
+		resultado = "$this->" + resultado;
 		return resultado;
 	}
 
@@ -266,11 +282,28 @@ public class Variavel {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
+	/**
+	 * Torna a variável indice ou não
+	 * 
+	 * @param indice
+	 */
+	public void setIndice(boolean indice) {
+		this.indice = indice;
+	}
+
+	/**
+	 * Retorna se a variável é um indice ou não
+	 * 
+	 * @return
+	 */
+	public boolean getIndice() {
+		return this.indice;
+	}
 
 	/**
 	 * Mostra quando a variavel é única
+	 * 
 	 * @return
 	 */
 	public boolean isUnico() {
@@ -279,6 +312,7 @@ public class Variavel {
 
 	/**
 	 * true deixa a variável unica
+	 * 
 	 * @param unico
 	 */
 	public void setUnico(boolean unico) {
@@ -298,7 +332,7 @@ public class Variavel {
 	 *            classe, do contrário irá colocar como padrão o tipo Frase
 	 */
 	public void setTipo(int tipo) {
-		tipo = Variavel.validarTipo(tipo);
+		this.tipo = this.validarTipo(tipo);
 	}
 
 	/**
@@ -395,15 +429,13 @@ public class Variavel {
 	 */
 	public void setChave(boolean chave) {
 		this.chave = chave;
-		if(chave)
-		{	
+		if (chave) {
 			this.setRequerido(chave);
 			this.setAutoIncrement(chave);
 		}
 	}
-	
-	public void setChave()
-	{
+
+	public void setChave() {
 		this.setChave(true);
 	}
 
@@ -415,7 +447,8 @@ public class Variavel {
 	}
 
 	/**
-	 * @param requerido the requerido to set
+	 * @param requerido
+	 *            the requerido to set
 	 */
 	public void setRequerido(boolean requerido) {
 		this.requerido = requerido;
@@ -429,20 +462,17 @@ public class Variavel {
 	}
 
 	/**
-	 * @param autoIncrement só pode ser TRUE quando a tipo da Variavel é Variavel.INTEIRO do contrário ela sempre será FALSE
+	 * @param autoIncrement
+	 *            só pode ser TRUE quando a tipo da Variavel é Variavel.INTEIRO
+	 *            do contrário ela sempre será FALSE
 	 */
 	public void setAutoIncrement(boolean autoIncrement) {
-		if(this.tipo == Variavel.INTEIRO)
-		{
+		if (this.tipo == Variavel.INTEIRO) {
 			this.autoIncrement = autoIncrement;
-		}
-		else
-		{
+		} else {
 			this.autoIncrement = false;
 		}
 	}
-	
-	
 
 	/*
 	 * ****************************************************************************************************
@@ -462,7 +492,7 @@ public class Variavel {
 	 * @param tipo
 	 *            Tipo da Variavel
 	 */
-	public Variavel(String nome, int tipo,String descricao) {
+	public Variavel(String nome, int tipo, String descricao) {
 		setNome(nome);
 		setTipo(tipo);
 	}
@@ -478,11 +508,11 @@ public class Variavel {
 	 */
 
 	public static int validarTipo(int tipo) {
-		if(!(tipo>=0 && tipo<=12))
+		if(tipo>=0 && tipo<=14)
 		{
-			return Variavel.STRING;
+			return tipo;
 		}
-		return tipo;
-		
+		return Variavel.STRING;
+
 	}
 }

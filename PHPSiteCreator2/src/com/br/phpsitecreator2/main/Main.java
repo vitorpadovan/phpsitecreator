@@ -30,7 +30,11 @@ public class Main {
 		classes.add(GeradorDeClasse.getServico());
 		classes.add(GeradorDeClasse.getCargo());
 		classes.add(GeradorDeClasse.getDocumentacao());
-		classes.add(GeradorDeClasse.getPessoa());
+		classes.add(GeradorDeClasse.getLocais());
+		classes.add(GeradorDeClasse.getCargo());
+		classes.add(GeradorDeClasse.getTesesEDissertacoes());
+		classes.add(GeradorDeClasse.getTramite());
+		classes.add(GeradorDeClasse.getAcesso());
 	}
 	
 	private void processar()

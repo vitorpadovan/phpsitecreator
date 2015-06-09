@@ -45,6 +45,31 @@ public class PHPModelGerador extends PHPClasseGerador {
 	private void gerarJSON()
 	{
 		this.abrirFuncao(new Modificador(Modificador.PUBLICO), "get", "JSON");
+		a.addLinha("$s = \"{\";", 2);
+		for(Variavel v: this.classe.getVariaveis())
+		{
+			a.addLinha();
+			a.addLinha("if(!is_null("+v.getNomePropriedade()+")){",2);
+			a.addLinha("$s .= '\""+v.getNomeProgramavel()+"\":",3);
+			if(!(v.getTipo() == Variavel.INTEIRO || v.getTipo() == Variavel.FLOAT || v.getTipo() == Variavel.DINHEIRO))
+			{
+				a.addFrase("\"");
+			}
+			a.addFrase("'."+v.getNomePropriedade()+".'");
+			if(!(v.getTipo() == Variavel.INTEIRO || v.getTipo() == Variavel.FLOAT || v.getTipo() == Variavel.DINHEIRO))
+			{
+				a.addFrase("\"");
+			}
+			if(this.classe.getVariaveis().indexOf(v)<this.classe.getVariaveis().size()-1)
+			{
+				a.addFrase(",");
+			}
+			a.addFrase("';");
+			a.addLinha("}else{",2);
+			a.addLinha("$s .= '\""+v.getNomeProgramavel()+"\":null';",3);
+			a.addLinha("}",2);
+		}
+		a.addLinha("$s .= '}';",2);
 		this.fecharFuncao();
 	}
 

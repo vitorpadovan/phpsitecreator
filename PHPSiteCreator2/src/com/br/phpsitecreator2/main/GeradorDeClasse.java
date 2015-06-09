@@ -12,6 +12,7 @@ public class GeradorDeClasse {
 		Variavel nome = new Variavel("Nome", Variavel.STRING, "Nome da pessoa");
 		nome.setTamanho(250);
 		nome.setRequerido(true);
+		nome.setIndice(true);
 		
 		Variavel sexo = new Variavel("Sexo",Variavel.STRING,"Sexo da pessoa");
 		sexo.setTamanho(1);
@@ -21,6 +22,7 @@ public class GeradorDeClasse {
 		
 		Variavel email = new Variavel("Email",Variavel.EMAIL,"Email da pessoa");
 		email.setRequerido(true);
+		email.setIndice(true);
 		
 		Variavel CPF = new Variavel("CPF",Variavel.DOCUMENTO,"CPF da pessoa");
 		
@@ -63,6 +65,7 @@ public class GeradorDeClasse {
 		senha.setRequerido(true);
 		
 		Variavel nivel = new Variavel("Nivel",Variavel.STRING,"Nível de permissão do usuário");
+		nivel.setTamanho(10);
 		nivel.setRequerido(true);
 		
 		Variavel data_cadastro = new Variavel("Data de cadastro",Variavel.DATA_HORARIO,"Data de cadastro do usuário");
@@ -80,15 +83,43 @@ public class GeradorDeClasse {
 	
 	public static Classe getAtividade()
 	{
-		Classe Usuario = new Classe("Atividade");
-		return Usuario;		
+		Classe ClassAtividade = new Classe("Atividade");
+		
+		Variavel atividade = new Variavel("Atividade", Variavel.STRING, "Nome da atividade");
+		atividade.setRequerido(true);
+		atividade.setUnico(true);
+		
+		Variavel descricao = new Variavel("Descrição", Variavel.TEXTO,"Descrição da atividade");
+		
+		
+		ClassAtividade.addVariavel(atividade);
+		ClassAtividade.addVariavel(descricao);
+		
+		
+		return ClassAtividade;		
 	}
 	
 	public static Classe getServico()
 	{
-		Classe Usuario = new Classe("Servico");
+		Classe CServico = new Classe("Servico");
 		
-		return Usuario;		
+		Variavel servico = new Variavel("Serviço",Variavel.STRING,"Nome do serviço");
+		servico.setRequerido(true);
+		servico.setUnico(true);
+		servico.setIndice(true);
+		
+		Variavel descricao = new Variavel("Descrição",Variavel.TEXTO,"Descrição do serviço");
+		descricao.setRequerido(true);
+		
+		Variavel exemplos = new Variavel("Exemplos",Variavel.TEXTO,"Exemplos de serviços a serem oferecidos");
+		exemplos.setRequerido(true);
+		
+		
+		CServico.addVariavel(servico);
+		CServico.addVariavel(descricao);
+		CServico.addVariavel(exemplos);
+		
+		return CServico;		
 	}
 	
 	public static Classe getPatrimonio()
@@ -100,13 +131,47 @@ public class GeradorDeClasse {
 	public static Classe getChamado()
 	{
 		Classe Usuario = new Classe("Chamado");
+		Variavel inicio = new Variavel("Inicio",Variavel.DATA_HORARIO,"Data e hora do inicio de um chamado");
+		inicio.setRequerido(true);
+		Variavel fim = new Variavel("FIm",Variavel.DATA_HORARIO,"Data e hora do fim de um chamado");
+		fim.setRequerido(true);
+		Variavel usuarioDeAbertura = new Variavel("Usuario de abertura",Variavel.INTEIRO,"Usuário que abriu o chamado");
+		usuarioDeAbertura.setRequerido(true);
+		Variavel usuarioSolicitante = new Variavel("Usuario solicitante",Variavel.INTEIRO,"Usuário que solicitou o chamado");
+		usuarioSolicitante.setRequerido(true);
+		Variavel descricao = new Variavel("Descricao",Variavel.TEXTO,"Descrição do chamado");
+		descricao.setRequerido(true);
+		Variavel patrimonio = new Variavel("Patrimonio",Variavel.INTEIRO,"Patrimonio associado ao chamado");
+		
+		
+		Usuario.addVariavel(inicio);
+		Usuario.addVariavel(fim);
+		Usuario.addVariavel(usuarioDeAbertura);
+		Usuario.addVariavel(usuarioSolicitante);
+		Usuario.addVariavel(descricao);
+		Usuario.addVariavel(patrimonio);
+		
 		return Usuario;		
 	}
 	
 	public static Classe getDocumentacao()
 	{
-		Classe Usuario = new Classe("Documentacao");
-		return Usuario;		
+		Classe Documento = new Classe("Documentacao");
+		Variavel pasta = new Variavel("Pasta",Variavel.STRING,"Pasta em que será arquivado o documento");
+		pasta.setRequerido(true);
+		Variavel nomeDoArquivo = new Variavel("Nome do arquivo",Variavel.STRING,"Nome do arquivo do documento");
+		nomeDoArquivo.setRequerido(true);
+		Variavel tipoDoArquivo = new Variavel("Tipo do arquivo",Variavel.STRING,"Tipo do arquivo a ser usado");
+		tipoDoArquivo.setRequerido(true);
+		Variavel extensao = new Variavel("Extensão",Variavel.STRING,"Extensão do arquivo do documento");
+		extensao.setRequerido(true);
+		
+		Documento.addVariavel(pasta);
+		Documento.addVariavel(nomeDoArquivo);
+		Documento.addVariavel(tipoDoArquivo);
+		Documento.addVariavel(extensao);
+		
+		return Documento;		
 	}
 	
 	public static Classe getLocais()
@@ -131,5 +196,11 @@ public class GeradorDeClasse {
 	{
 		Classe Usuario = new Classe("Tramite");
 		return Usuario;		
+	}
+	
+	public static Classe getAcesso()
+	{
+		Classe acesso = new Classe("Acesso");
+		return acesso;
 	}
 }
