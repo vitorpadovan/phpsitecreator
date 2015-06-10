@@ -35,6 +35,7 @@ public class Main {
 		classes.add(GeradorDeClasse.getTesesEDissertacoes());
 		classes.add(GeradorDeClasse.getTramite());
 		classes.add(GeradorDeClasse.getAcesso());
+		classes.add(GeradorDeClasse.getEmail());
 	}
 	
 	private void processar()
