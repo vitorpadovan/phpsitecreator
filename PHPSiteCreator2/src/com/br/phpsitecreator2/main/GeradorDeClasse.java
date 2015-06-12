@@ -132,28 +132,52 @@ public class GeradorDeClasse {
 
 	public static Classe getPatrimonio() {
 		Classe Usuario = new Classe("Patrimonio");
+		
+		Variavel responsavel = new Variavel("Responsável",Variavel.INTEIRO,"Responsável pelo patrimônio");
+		responsavel.setRequerido(true);
+		
+		Variavel patrimonio = new Variavel("Patrimonio",Variavel.STRING,"nº de bem do patrimônio");
+		patrimonio.setRequerido(true);
+		
+		Variavel empresa = new Variavel("Empresa",Variavel.STRING,"Empresa do patrimônio");
+		empresa.setRequerido(true);
+		
+		Variavel modelo = new Variavel("Modelo",Variavel.STRING,"Modelo do patrimônio, se houver");
+		
+		Variavel marca = new Variavel("Marca",Variavel.STRING,"Marca do patrimônio");
+		
+		Variavel situacao = new Variavel("Situação do patrimonio",Variavel.STRING,"Situação em que se encontra o patrimônio");
+		
+		
 		return Usuario;
 	}
 
 	public static Classe getChamado() {
 		Classe Usuario = new Classe("Chamado");
+		
 		Variavel inicio = new Variavel("Inicio", Variavel.DATA_HORARIO,
 				"Data e hora do inicio de um chamado");
 		inicio.setRequerido(true);
+		
 		Variavel fim = new Variavel("FIm", Variavel.DATA_HORARIO,
 				"Data e hora do fim de um chamado");
 		fim.setRequerido(true);
+		
 		Variavel usuarioDeAbertura = new Variavel("Usuario de abertura",
 				Variavel.INTEIRO, "Usuário que abriu o chamado");
 		usuarioDeAbertura.setRequerido(true);
+		
 		Variavel usuarioSolicitante = new Variavel("Usuario solicitante",
 				Variavel.INTEIRO, "Usuário que solicitou o chamado");
 		usuarioSolicitante.setRequerido(true);
+		
 		Variavel descricao = new Variavel("Descricao", Variavel.TEXTO,
 				"Descrição do chamado");
 		descricao.setRequerido(true);
+		
 		Variavel patrimonio = new Variavel("Patrimonio", Variavel.INTEIRO,
 				"Patrimonio associado ao chamado");
+		
 		Variavel pausado = new Variavel("Pausado", Variavel.BOOLEANA,
 				"Mostra que o chamado em questão está pausado chamado pausado");
 
@@ -172,12 +196,15 @@ public class GeradorDeClasse {
 		Variavel pasta = new Variavel("Pasta", Variavel.STRING,
 				"Pasta em que será arquivado o documento");
 		pasta.setRequerido(true);
+		
 		Variavel nomeDoArquivo = new Variavel("Nome do arquivo",
 				Variavel.STRING, "Nome do arquivo do documento");
 		nomeDoArquivo.setRequerido(true);
+		
 		Variavel tipoDoArquivo = new Variavel("Tipo do arquivo",
 				Variavel.STRING, "Tipo do arquivo a ser usado");
 		tipoDoArquivo.setRequerido(true);
+		
 		Variavel extensao = new Variavel("Extensão", Variavel.STRING,
 				"Extensão do arquivo do documento");
 		extensao.setRequerido(true);
@@ -245,6 +272,7 @@ public class GeradorDeClasse {
 
 	public static Classe getEmail() {
 		Classe email = new Classe("Email");
+		
 		return email;
 	}
 }
